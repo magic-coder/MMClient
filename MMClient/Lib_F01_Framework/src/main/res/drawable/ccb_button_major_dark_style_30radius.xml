@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@drawable/ccb_button_major_dark_style_pressed_30radius" android:state_pressed="true"/>
+    <item android:drawable="@drawable/ccb_button_major_dark_style_disabled_30radius" android:state_enabled="false"/>
+    <item android:drawable="@drawable/ccb_button_major_dark_style_enabled_30radius"/>
+
+</selector>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/main_home_action_clear_all"
+        android:title="@string/main_message_clear_all"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/main_home_action_clear_selected"
+        android:title="@string/main_message_clear_selected"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/main_home_action_filter"
+        android:title="@string/main_message_filter"
+        app:showAsAction="never" />
+
+</menu>

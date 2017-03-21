@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">MM</string>
+
+    <!-- 主页面-->
+    <string name="main_nearby">...</string>
+    <string name="main_message">消息</string>
+    <string name="main_friends">朋友</string>
+    <string name="main_dynamic">动态</string>
+    <string name="main_info_center">个人中心</string>
+
+    <string name="main_home_menu_student">学生</string>
+    <string name="main_home_menu_teacher">老师</string>
+    <string name="main_home_menu_doctor">医生</string>
+    <string name="main_home_upload_location">上传我的位置</string>
+    <string name="main_home_clear_my_location">清除我的位置</string>
+
+    <string name="main_home_upload_location_success">我的位置上传成功</string>
+    <string name="main_home_upload_location_failure">我的位置上传失败</string>
+    <string name="main_home_clear_my_location_success">清除我的位置成功</string>
+    <string name="main_home_clear_my_location_failure">清除我的位置失败</string>
+    <string name="main_home_tips_nearby_search_empty">没有找到相关附近的人，您可以扩大搜索范围试试。</string>
+
+    <string name="main_message_clear_all">清除全部</string>
+    <string name="main_message_clear_selected">选择清除</string>
+    <string name="main_message_filter">筛选</string>
+
+    <string name="no_result">对不起，没有搜索到相关数据！</string>
+
+    <!-- 信息中心 -->
+    <string name="mine_info_title">我的信息</string>
+    <string name="mine_info_dynamic">我的动态</string>
+    <string name="mine_info_photos">我的照片</string>
+    <string name="mine_info_like">兴趣爱好</string>
+    <string name="mine_info_do_latest">最近做了什么</string>
+    <string name="mine_info_more">更多的我</string>
+</resources>

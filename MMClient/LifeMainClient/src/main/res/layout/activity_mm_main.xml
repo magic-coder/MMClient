@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_mm_main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="com.life.mm.MMMainActivity">
+
+    <LinearLayout
+        android:id="@+id/main_tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:background="#a2a1a6" />
+
+        <RadioGroup
+            android:id="@+id/navigation_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radio_button_nearby"
+                style="@style/main_nav_button"
+                android:checked="true"
+                android:drawableTop="@drawable/main_nav_mine"
+                android:text="@string/main_nearby" />
+
+            <RadioButton
+                android:id="@+id/radio_button_message"
+                style="@style/main_nav_button"
+                android:drawableTop="@drawable/main_nav_life"
+                android:text="@string/main_message" />
+
+            <RadioButton
+                android:id="@+id/radio_button_friends"
+                style="@style/main_nav_button"
+                android:drawableTop="@drawable/main_nav_investment"
+                android:text="@string/main_friends" />
+
+            <RadioButton
+                android:id="@+id/radio_button_dynamic"
+                style="@style/main_nav_button"
+                android:drawableTop="@drawable/main_nav_credit_card"
+                android:text="@string/main_dynamic" />
+
+
+            <RadioButton
+                android:id="@+id/radio_button_info_center"
+                style="@style/main_nav_button"
+                android:drawableTop="@drawable/main_nav_loan"
+                android:text="@string/main_info_center"
+                android:visibility="gone" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/main_tab_layout" />
+</RelativeLayout>

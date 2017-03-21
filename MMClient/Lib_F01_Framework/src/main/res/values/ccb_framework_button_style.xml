@@ -1,0 +1,100 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--主要按钮：浅色背景，圆角40px，用于高度80px的按钮-->
+    <style name="button_major_tint_style_40radius" parent="generalSkin">
+        <item name="generalSkin">true</item>
+        <item name="android:minHeight">@dimen/y115</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/x52</item>
+        <item name="android:background">@drawable/ccb_button_major_tint_style_40radius</item>
+    </style>
+    <!--主要按钮：浅色背景，圆角30px，用于高度60px的按钮-->
+    <style name="button_major_tint_style_30radius" parent="generalSkin">
+        <item name="generalSkin">true</item>
+        <item name="android:minHeight">@dimen/y86</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/x37</item>
+        <item name="android:background">@drawable/ccb_button_major_tint_style_30radius</item>
+    </style>
+    <!--主要按钮：浅色背景，圆角20px，用于高度60px的按钮-->
+    <style name="button_major_tint_style_20radius" parent="generalSkin">
+        <item name="generalSkin">true</item>
+        <item name="android:minWidth">@dimen/x58</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/x32</item>
+        <item name="android:background">@drawable/ccb_button_major_tint_style_20radius</item>
+    </style>
+    <!--主要按钮：深色背景，圆角40px，用于高度80px的按钮-->
+    <style name="button_major_dark_style_40radius">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/x52</item>
+        <item name="android:minHeight">@dimen/y115</item>
+        <item name="android:textColor">@drawable/ccb_button_major_dark_font_color</item>
+        <item name="android:background">@drawable/ccb_button_major_dark_style_40radius</item>
+    </style>
+    <!--主要按钮：深色背景，圆角30px，用于高度60px的按钮-->
+    <style name="button_major_dark_style_30radius">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/x37</item>
+        <item name="android:minHeight">@dimen/y86</item>
+        <item name="android:textColor">@drawable/ccb_button_major_dark_font_color</item>
+        <item name="android:background">@drawable/ccb_button_major_dark_style_30radius</item>
+    </style>
+
+    <!--次要按钮：浅色背景，圆角40px，用于高度80px的按钮-->
+    <style name="button_minor_tint_style_40radius">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/x52</item>
+        <item name="android:minHeight">@dimen/y115</item>
+        <item name="android:textColor">@drawable/ccb_button_minor_tint_font_color</item>
+        <item name="android:background">@drawable/ccb_button_minor_tint_style_40radius</item>
+    </style>
+    <!--次要按钮：浅色背景，圆角30px，用于高度60px的按钮-->
+    <style name="button_minor_tint_style_30radius">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/x37</item>
+        <item name="android:minHeight">@dimen/y86</item>
+        <item name="android:textColor">@drawable/ccb_button_minor_tint_font_color</item>
+        <item name="android:background">@drawable/ccb_button_minor_tint_style_30radius</item>
+    </style>
+
+    <!--次要按钮：深色背景，圆角40px，用于高度80px的按钮-->
+    <style name="button_minor_dark_style_40radius">
+        <item name="android:minHeight">@dimen/y115</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/x52</item>
+        <item name="android:textColor">@drawable/ccb_button_minor_dark_font_color</item>
+        <item name="android:background">@drawable/ccb_button_minor_dark_style_40radius</item>
+    </style>
+    <!--次要按钮：深色背景，圆角30px，用于高度60px的按钮-->
+    <style name="button_minor_dark_style_30radius">
+        <item name="android:gravity">center</item>
+        <item name="android:minHeight">@dimen/y86</item>
+        <item name="android:textSize">@dimen/x37</item>
+        <item name="android:textColor">@drawable/ccb_button_minor_dark_font_color</item>
+        <item name="android:background">@drawable/ccb_button_minor_dark_style_30radius</item>
+    </style>
+
+    <!-- 页面底部单按钮 -->
+    <style name="button_bottom_single_tint_40" parent="button_major_tint_style_40radius">
+        <item name="android:layout_width">@dimen/x748</item>
+        <item name="android:minHeight">@dimen/y115</item>
+        <item name="android:textSize">@dimen/x52</item>
+        <item name="android:layout_marginTop">@dimen/y86</item>
+        <item name="android:layout_marginBottom">@dimen/y86</item>
+    </style>
+
+    <style name="button_textcolor_change_whitebg_style_40radius" parent="generalSkin">
+        <item name="android:minHeight">@dimen/y80</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/x52</item>
+        <item name="android:background">@drawable/ccb_textcolor_change_button_white_bg_40radius</item>
+    </style>
+
+    <style name="button_textcolor_change_whitebg_style_30radius"
+           parent="button_textcolor_change_whitebg_style_40radius">
+        <item name="android:background">@drawable/ccb_textcolor_change_button_white_bg_30radius</item>
+    </style>
+
+
+</resources>

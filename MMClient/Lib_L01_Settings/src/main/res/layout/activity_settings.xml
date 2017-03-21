@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/settings_account_safe"
+                style="@style/settings_line_layout_style">
+
+                <TextView
+                    style="@style/settings_line_text_style"
+                    android:text="@string/settings_account_safe" />
+
+                <ImageView
+                    android:layout_width="20dip"
+                    android:layout_height="16dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/right_arrow" />
+            </RelativeLayout>
+
+            <View style="@style/sep_view_item" />
+
+            <RelativeLayout
+                android:id="@+id/settings_clear_storage"
+                style="@style/settings_line_layout_style">
+                <TextView
+                    style="@style/settings_line_text_style"
+                    android:text="@string/settings_storage_clear" />
+
+                <ImageView
+                    android:layout_width="20dip"
+                    android:layout_height="16dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/right_arrow" />
+            </RelativeLayout>
+
+            <View style="@style/sep_view_item" />
+
+            <RelativeLayout
+                android:id="@+id/settings_app_share"
+                style="@style/settings_line_layout_style">
+                <TextView
+                    style="@style/settings_line_text_style"
+                    android:text="@string/settings_app_share" />
+
+                <ImageView
+                    android:layout_width="20dip"
+                    android:layout_height="16dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/right_arrow" />
+            </RelativeLayout>
+
+            <View style="@style/sep_view_item" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:paddingBottom="@dimen/x86"
+                android:paddingTop="@dimen/x86">
+
+                <Button
+                    android:id="@+id/settings_quite_app"
+                    style="@style/ysh_next_button"
+                    android:layout_marginBottom="0dip"
+                    android:layout_marginTop="0dip"
+                    android:text="@string/settings_app_quite" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

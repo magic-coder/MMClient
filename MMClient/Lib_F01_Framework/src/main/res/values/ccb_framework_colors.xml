@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorbuttonnornal">#09b6f2</color>
+    <color name="color_blue_light">#0066b0</color>
+    <color name="colorbuttondwon">#164a99</color>
+    <color name="colorbuttonstop">#c8eeff</color>
+    <color name="title">#23B0EF</color>
+    <color name="pupselectnornal">#F4F8FB</color>
+    <color name="pupselectclick">#23B0EF</color>
+    <color name="colorblue">#09b6f2</color>
+    <color name="colorwhite">#FFFFFF</color>
+    <color name="colorgray">#F8F8F8</color>
+    <color name="colorfontblack">#686862</color>
+    <color name="index_title_color">#333333</color>
+    
+    <!--背景颜色-->
+    <color name="bg_gray_light_ecf1f5">#ecf1f5</color>
+    <color name="bg_gray_separaor_999999">#999999</color>
+    <color name="bg_gray_separaor_9b9eac">#9b9eac</color>
+    <color name="bg_gray_separaor_cccccc">#cccccc</color>
+    <color name="bg_list_item_gray">#dddddd</color>
+    <color name="bg_list_item_eeeeee">#eeeeee</color>
+    <color name="bg_list_item_ededed">#ededed</color>
+    <color name="bg_gray_bg_for_warm_hint">#f4f8fb</color>
+
+    <!--selector颜色-->
+    <color name="selector_pressed_gray_f8f8f8">#F8F8F8</color>
+
+    <color name="button_gray">#CECFCF</color>
+    <color name="ccb_form_text_color3">#333333</color>
+    <color name="ccb_form_text_color6">#666666</color>
+    <color name="ccb_form_text_color9">#999999</color>
+    <color name="ccb_form_text_green">#429d4b</color>
+
+    <!-- 列表label text颜色 -->
+    <color name="ccb_framework_list_label_text_color">@color/ccb_form_text_color3</color>
+    <!-- 列表label 输入框字体颜色 -->
+    <color name="ccb_framework_list_input_text_color">@color/ccb_form_text_color6</color>
+    <!-- 列表label 输入框hint颜色 -->
+    <color name="ccb_framework_list_hint_text_color">@color/ccb_form_text_color9</color>
+
+    <!-- 分隔线颜色 -->
+    <color name="ccb_separaor_color">#dddddd</color>
+
+    <!-- 开通、登录 -->
+    <!--<color name="index_title_color">#555555</color>-->
+    <color name="check_button">#10ffffff</color>
+    <color name="login_corner_line_color">#55ffffff</color>
+    <color name="login_line_color">#11ffffff</color>
+    <color name="login_bg_color">#95000000</color>
+    <color name="sms_code_color">#0661b0</color>
+    <color name="line">#c8c8c8</color>
+    <!-- 登录指纹 -->
+    <color name="finger_blue">#3066B2</color>
+    <color name="index_font_color">#b3b3b3</color>
+    <color name="ccb_form_text_color">#555555</color>
+
+    <!-- 通讯框背景色 -->
+    <color name="ccb_loading_dialog_background">#000000</color>
+	
+	<!-- 以下为手机银行4.0的颜色标准，定义必须以spec_开始，不需要color -->
+
+    <!--主要颜色-->
+    <!--浅蓝色：代表可点击性、所选状态和寓意链接，也作为标题栏的背景色-->
+    <color name="spec_major_light_blue">#09b6f2</color>
+    <!--深蓝色：与浅蓝色配合使用，可表示按钮按下状态-->
+    <color name="spec_major_dark_blue">#164a99</color>
+    <!--淡蓝色：比浅蓝色更浅，可表示停用状态-->
+    <color name="spec_major_lighter_blue">#c8eeff</color>
+    <!--黑色：主要用于主导航-->
+    <color name="spec_major_black">#191919</color>
+    <!--灰色：主要用于次要的操作，例如更多详情资料，不可点击等-->
+    <color name="spec_major_grey">#9b9eac</color>
+    <!--白色-->
+    <color name="spec_major_white">#ffffff</color>
+
+    <!--次要颜色-->
+    <!--玫红色：用于上升金额或者强调作用，也可用于图标图表中-->
+    <color name="spec_minor_rose">#db3764</color>
+    <!--深绿色：用于下降金额以及图标图表中-->
+    <color name="spec_minor_dark_green">#429d4b</color>
+    <!--蓝紫色：用于图标图表及有正面意义的小标签-->
+    <color name="spec_minor_blue_purple">#6957b3</color>
+    <!--紫色：用于图标图表及有正面意义的小标签-->
+    <color name="spec_minor_purple">#c66fa1</color>
+    <!--黄色：用于图标图表以及评级-->
+    <color name="spec_minor_yellow">#f9c03d</color>
+    <!--浅绿色：主要用于图标图表-->
+    <color name="spec_minor_light_green">#98e14e</color>
+
+    <!--字体：此四种灰色常用于字体颜色-->
+    <color name="spec_font_press">#333333</color>
+    <color name="spec_font_normal">#666666</color>
+    <color name="spec_font_grey3">#999999</color>
+    <color name="spec_font_disabled">#cccccc</color>
+
+    <!--分割线颜色：此三种灰色主要用于页面分隔线-->
+    <!--grey1:适用于灰色背景或者需要强调的分隔线，如区块标题分隔线-->
+    <color name="spec_split_line_grey1">#cccccc</color>
+    <!--grey2:白色背景页面当中最常见的分隔线颜色-->
+    <color name="spec_split_line_grey2">#dddddd</color>
+    <!--grey3:用于需要弱化分隔线颜色的场景-->
+    <color name="spec_split_line_grey3">#eeeeee</color>
+
+    <!--背景颜色-->
+    <!--用于页面中模块下方背景-->
+    <color name="spec_bg_grey1">#eeeeee</color>
+    <!--一般与#ffffff同时出现，其中#ffffff背景用于呈现重要场景，#f4f8fb用于呈现较重要场景，如页面顶端主要模块-->
+    <color name="spec_bg_grey2">#f4f8fb</color>
+    <!--与#ffffff、#f4f8fb等颜色的背景组合使用，一般用于局部操作区等辅助性内容-->
+    <color name="spec_bg_grey3">#ecf1f8</color>
+    <!--极少出现，一般用于辅助性内容，如侧边栏导航-->
+    <color name="spce_bg_grey4">#f8f8f8</color>
+    <!--用于特殊页面，如小助手页-->
+    <color name="spec_bg_grey5">#dde3e9</color>
+
+    <color name="my_custom">#FCFCFC</color>
+
+
+    <!-- 输入表单背景颜色 -->
+    <color name="spec_input_form_bg">#ecf1f5</color>
+
+    <!-- 可点击按钮正常背景颜色 -->
+    <color name="spec_enabled_button_bg_normal">#555555</color>
+
+    <!-- 可点击按钮正常背景颜色 -->
+    <color name="spec_enabled_button_bg_pressed">#09b6f2</color>
+
+    <!-- 可点击按钮字体颜色 -->
+    <color name="spec_enabled_button_font">#09b6f2</color>
+
+    <!-- 不可点击按钮正常背景颜色 -->
+    <color name="spec_disabled_button_bg_normal">#555555</color>
+
+    <!-- 不可点击按钮正常背景颜色 -->
+    <color name="spec_disabled_button_bg_pressed">#666666</color>
+
+    <!-- 不可点击按钮正常背景颜色 -->
+    <color name="spec_disabled_button_font">#666666</color>
+
+    <!-- 提示标签颜色 -->
+    <color name="spec_label">#333333</color>
+
+    <!-- 输入框提示字体颜色 -->
+    <color name="spec_placeholder">#999999</color>
+
+    <!-- 验证码输入提示字体颜色 -->
+    <color name="spec_verification_code_tip">#666666</color>
+
+    <color name="spec_title_bg">#09b6f2</color>
+
+    <color name="spec_title_font">#ffffff</color>
+
+    <color name="spec_divider_strong">#cccccc</color>
+
+    <color name="spec_divider">#dddddd</color>
+
+    <color name="spec_divider_faint">#eeeeee</color>
+
+    <!-- 浅色背景、主要按钮start -->
+    <!-- 正常描边颜色 -->
+    <color name="spec_button_major_tint_style_enabled">#09b6f2</color>
+    <!-- 正常字体颜色 -->
+    <color name="spec_button_major_tint_font_enabled">#09b6f2</color>
+    <!-- 按下描边颜色 -->
+    <color name="spec_button_major_tint_style_pressed">#164a99</color>
+    <!-- 按下字体颜色 -->
+    <color name="spec_button_major_tint_font_pressed">#164a99</color>
+    <!-- 停用描边颜色 -->
+    <color name="spec_button_major_tint_style_disabled">#c8eeff</color>
+    <!-- 停用字体颜色 -->
+    <color name="spec_button_major_tint_font_disabled">#c8eeff</color>
+    <!-- 浅色背景、主要按钮end -->
+
+    <!-- 深色背景、主要按钮start -->
+    <!-- 正常填充颜色 -->
+    <color name="spec_button_major_dark_style_enabled">#ffffff</color>
+    <!-- 正常字体颜色 -->
+    <color name="spec_button_major_dark_font_enabled">#666666</color>
+    <!-- 按下填充颜色 -->
+    <color name="spec_button_major_dark_style_pressed">#ffffff</color>
+    <!-- 按下字体颜色 -->
+    <color name="spec_button_major_dark_font_pressed">#333333</color>
+    <!-- 停用填充颜色 -->
+    <color name="spec_button_major_dark_style_disabled">#ffffff</color>
+    <!-- 停用字体颜色 -->
+    <color name="spec_button_major_dark_font_disabled">#cccccc</color>
+    <!-- 深色背景、主要按钮end -->
+
+    <!-- 浅色背景、次要按钮start -->
+    <!-- 正常描边颜色 -->
+    <color name="spec_button_minor_tint_style_enabled">#999999</color>
+    <!-- 正常字体颜色 -->
+    <color name="spec_button_minor_tint_font_enabled">#666666</color>
+    <!-- 按下描边颜色 -->
+    <color name="spec_button_minor_tint_style_pressed">#191919</color>
+    <!-- 按下字体颜色 -->
+    <color name="spec_button_minor_tint_font_pressed">#333333</color>
+    <!-- 停用描边颜色 -->
+    <color name="spec_button_minor_tint_style_disabled">#e5e5e5</color>
+    <!-- 停用字体颜色 -->
+    <color name="spec_button_minor_tint_font_disabled">#cccccc</color>
+    <!-- 浅色背景、次要按钮end -->
+
+    <!-- 深色背景、次要按钮start -->
+    <!-- 正常描边颜色 -->
+    <color name="spec_button_minor_dark_style_enabled">#ffffff</color>
+    <!-- 正常字体颜色 -->
+    <color name="spec_button_minor_dark_font_enabled">#ffffff</color>
+    <!-- 按下填充颜色 -->
+    <color name="spec_button_minor_dark_style_pressed">#ffffff</color>
+    <!-- 按下字体颜色 -->
+    <color name="spec_button_minor_dark_font_pressed">#333333</color>
+    <!-- 停用填充颜色 -->
+    <color name="spec_button_minor_dark_style_disabled">#eeeeee</color>
+    <!-- 停用字体颜色 -->
+    <color name="spec_button_minor_dark_font_disabled">#cccccc</color>
+    <!-- 深色背景、次要按钮end -->
+
+    <!-- 玫红色 -->
+    <color name="spec_rose_bengal">#db3764</color>
+
+    <!-- 深绿色 -->
+    <color name="spec_dark_green">#429d4b</color>
+
+    <!-- 常用链接文字蓝色 -->
+    <color name="spec_font_link">#09b6f2</color>
+
+    <color name="spec_font_number_up">#db3762</color>
+
+    <color name="spec_font_number_down">#429d4b</color>
+
+    <color name="spec_font_1">#333333</color>
+
+    <color name="spec_font_2">#09b6f2</color>
+
+    <color name="spec_font_3">#666666</color>
+
+    <color name="spec_font_4">#999999</color>
+
+    <color name="spec_font_5">#ffffff</color>
+
+    <color name="spec_window_bg">#ffffff</color>
+
+    <!-- 不可点击title颜色 -->
+    <color name="spec_enable_title">#164a99</color>
+
+
+    <!-- 以上为手机银行4.0的颜色标准，定义必须以spec_开始 -->
+
+    <!--二维码扫描相关-->
+    <color name="contents_text">#ff000000</color>
+
+    <color name="encode_view">#ffffffff</color>
+
+    <color name="possible_result_points">#c0ffbd21</color>
+
+    <!-- Android standard ICS color -->
+
+
+    <color name="result_minor_text">#ffc0c0c0</color>
+
+    <color name="result_points">#c099cc00</color>
+
+    <!-- Android standard ICS color -->
+
+
+    <color name="result_text">#ffffffff</color>
+
+    <color name="result_view">#b0000000</color>
+
+    <color name="status_text">#ffffffff</color>
+
+    <color name="viewfinder_laser">#ffcc0000</color>
+
+    <!-- Android standard ICS color -->
+    <color name="viewfinder_mask">#60000000</color>
+    <!--二维码扫描相关-->
+
+    <!-- 登录相关 -->
+    <color name="login_main_bg_color">#e6000000</color>
+
+    <!-- 展开收起控件 -->
+
+    <!-- 标题颜色 -->
+    <color name="ccb_framework_expandhint_title_color">#666666</color>
+    <!-- 标题颜色 -->
+    <color name="ccb_framework_expandhint_content_color">#999999</color>
+
+    <!-- 声纹布局 -->
+    <!-- 数字字体颜色 -->
+    <color name="ccb_framework_voiceprint_number_text_color">#ffffff</color>
+    <!-- progressbar 背景颜色 -->
+    <color name="ccb_framework_voiceprint_progressbar_bg_color">@android:color/darker_gray</color>
+    <!-- 按钮提示字体颜色 -->
+    <color name="ccb_framework_voiceprint_record_btn_hint_text_color">#80ffffff</color>
+
+    <!-- 半绑升主绑，辅手机号对话框 -->
+    <color name="ccb_framework_red_dark">#d22d39</color>
+
+    <!--以下是七种不同颜色,卡片侧栏图片的颜色取值-->
+    <color name="color_for_09b6f2">#09b6f2</color>
+    <color name="color_for_46962e">#46962e</color>
+    <color name="color_for_795dbf">#795dbf</color>
+    <color name="color_for_ec6941">#ec6941</color>
+    <color name="color_for_fabf00">#fabf00</color>
+    <color name="color_for_0066b3">#0066b3</color>
+    <color name="color_for_eb3838">#eb3838</color>
+
+
+</resources>

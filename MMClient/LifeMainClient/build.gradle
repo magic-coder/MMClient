@@ -1,0 +1,124 @@
+apply plugin: 'com.android.application'
+def releaseTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
+
+def channelMap = ['mm':1, 'anzhuo':2, 'baidu':3, '_360':4, 'xiaomi':5, '_91':6, 'tencent_yingyongbao':7, 'yingyonghui':9, 'wandoujia':10, 'jingli':19,
+                  'anzhiwang':31, 'meizu':32, 'huawei':33, 'oppo':34, 'mumayi':35, 'jifengwang':36, 'N_duowang':37, '_3gmenhu':39, 'liqu':40, 'ppzhushou':44,
+                  'wangyi':46, 'paojiao':48];
+
+android {
+    signingConfigs {
+        ReleaseConfig {
+            keyAlias 'android.keystore'
+            keyPassword 'zfang123'
+            storeFile file('D:/Android/tools/key/android.keystore')
+            storePassword 'zfang123'
+        }
+        DebugConfig {
+            keyAlias 'android.keystore'
+            keyPassword 'zfang123'
+            storeFile file('D:/Android/tools/key/android.keystore')
+            storePassword 'zfang123'
+        }
+    }
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+    defaultConfig {
+        applicationId "com.life.mm"
+        minSdkVersion 15
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+    }
+
+    // 友盟多渠道打包
+    productFlavors {
+        mm {}
+        anzhuo {}
+        baidu {}
+        _360 {}
+        xiaomi {}
+        _91 {}
+        tencent_yingyongbao {}
+        yingyonghui {}
+        wandoujia {}
+        jingli {}
+
+        anzhiwang {}
+        meizu {}
+        huawei {}
+        oppo {}
+        mumayi {}
+        jifengwang {}
+        N_duowang {}
+        _3gmenhu {}
+        liqu {}
+        ppzhushou{}
+
+        wangyi {}
+        paojiao {}
+    }
+    buildTypes {
+        debug {
+            // 显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+
+            versionNameSuffix ""
+            minifyEnabled false
+            zipAlignEnabled false
+            shrinkResources false
+            signingConfig signingConfigs.DebugConfig
+        }
+
+        release {
+            // 不显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+
+            minifyEnabled false
+            zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.ReleaseConfig
+
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        // 输出apk名称为boohee_v1.0_2015-01-15_wandoujia.apk
+                        def outfileName = "MMClient${defaultConfig.versionName}_${releaseTime()}_${variant.productFlavors[0].name}.apk"
+                        output.outputFile = new File(outputFile.parent, outfileName)
+                    }
+                }
+            }
+        }
+    }
+
+    productFlavors.all { flavor ->
+        flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: channelMap[name], BAIDUMOB_AD_CHANNEL:channelMap[name]]
+    }
+    //为了解决部分第三方库重复打包了META-INF的问题
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.1.0'
+    testCompile 'junit:junit:4.12'
+    compile project(':Lib_C01_CommonLib')
+    compile project(':Lib_F01_Framework')
+    compile project(':Lib_F02_UIComponent')
+    compile project(':Lib_L01_Settings')
+
+
+}

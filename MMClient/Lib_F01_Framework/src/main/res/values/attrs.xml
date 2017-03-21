@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--页面背景色，由于使用侧滑系统背景属性为透明，所以这里自定义一个属性-->
+    <attr name="backgroundColor" format="color|reference"/>
+    <!--悬浮按钮的颜色-->
+    <attr name="fabColor" format="color|reference"/>
+    <!--导航图标和文字状态颜色-->
+    <attr name="navColor" format="reference|reference"/>
+    <!--toolbar的主题-->
+    <attr name="toolbarTheme" format="reference"/>
+    <!--新闻频道管理的背景-->
+    <attr name="itemChannelBackground" format="reference"/>
+    <!--导航头像背景-->
+    <attr name="navHeaderBackground" format="reference"/>
+    <!--CheckedTextView选中状态的颜色-->
+    <attr name="checkTextViewColorStateList" format="reference"/>
+    <declare-styleable name="PacManRefreshHead">
+        <attr name="pacIconColor" format="color|reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="ThreePointLoadingView">
+        <attr name="pointColor" format="color|reference"/>
+    </declare-styleable>
+    <declare-styleable name="Ccb_Custom">
+        <!--文字大小-->
+        <attr name="textSize" format="dimension"/>
+        <!--文字颜色-->
+        <attr name="textColor" format="color"/>
+        <!--中间文字-->
+        <attr name="centerText" format="string"/>
+
+        <!--柱状图、折线图相关-->
+        <!--x轴上单格宽度-->
+        <attr name="xLableWidth" format="dimension"/>
+        <!--y轴上单格高度-->
+        <attr name="yLableHeight" format="dimension"/>
+        <!--显示文字大小-->
+        <attr name="lableTextSize" format="dimension"/>
+        <!--显示文字颜色-->
+        <attr name="lableTextColor" format="color"/>
+        <!--线的大小-->
+        <attr name="lableLineSize" format="dimension"/>
+        <!--线的颜色-->
+        <attr name="lableLineColor" format="color"/>
+        <!--图表线的大小 为0不显示折线图-->
+        <attr name="chartLineSize" format="dimension"/>
+        <!--图表线的颜色-->
+        <attr name="chartLineColor" format="color"/>
+        <!--点的半径-->
+        <attr name="chartPointRadius" format="dimension"/>
+        <!--点的颜色-->
+        <attr name="chartPointColor" format="color"/>
+        <!--柱状图颜色-->
+        <attr name="chartHistogramColor" format="color"/>
+        <!--柱状图宽度 为0不显示柱状图-->
+        <attr name="chartHistogramWidth" format="dimension"/>
+        <!--是否为曲线-->
+        <attr name="isCubic" format="boolean"/>
+
+        <!--SideBar相关-->
+
+        <!--选中文字颜色-->
+        <attr name="selectTextColor" format="color"/>
+        <!--选中背景颜色-->
+        <attr name="selectBackGroudColor" format="color"/>
+        <!--显示文字数据-->
+        <attr name="letter" format="reference"/>
+        <!--是否显示选中背景-->
+        <attr name="showSelectBackGroudColor" format="boolean"/>
+
+
+        <!--CcbTextView右对齐属性-->
+        <attr name="alignRight" format="boolean"/>
+
+        <!--CcbEditText左对齐属性-->
+        <attr name="alignLeft" format="boolean"/>
+
+        <!--密码属性-->
+        <attr name="safePassword" format="boolean"/>
+
+        <!--密码属性-->
+        <attr name="safePasswordChar" format="string"/>
+
+        <!--是否启用账户分割属性-->
+        <attr name="textSplit" format="boolean"/>
+
+        <!--是否启用账户分割字符-->
+        <attr name="textSplitChar" format="string"/>
+
+        <!--是否启用账户分割位数-->
+        <attr name="textSplitDigit" format="integer"/>
+
+
+        <!--颜色拾取控件相关-->
+
+        <!--颜色拾取控件方向-->
+        <attr name="orientation">
+            <enum name="vertical" value="0"/>
+            <enum name="horizontal" value="1"/>
+        </attr>
+
+        <!--颜色拾取控件拖动-->
+        <attr name="thumbDrawable" format="reference"/>
+
+        <!--颜色条大小-->
+        <attr name="colorPanelWidth" format="dimension"/>
+
+        <!--渐变颜色数组-->
+        <attr name="gradientArray" format="reference"/>
+
+        <!--动态换肤相关-->
+        <attr name="generalSkin" format="boolean"/>
+
+        <!--动态图标更换-->
+        <attr name="generalIcon" format="boolean"/>
+        <!--动态图标更换-->
+        <attr name="generalTextSizeChange" format="boolean"/>
+        <!--动态图标更换-->
+        <attr name="generalIconName" format="string"/>
+        <!--动态图标更换-->
+        <attr name="generalIconNameBackground" format="string"/>
+
+        <!--输入框相关-->
+        <attr name="hintSize" format="dimension"/>
+        <!--输入框是否有清除按钮-->
+        <attr name="isShowClearDrawable" format="boolean"/>
+
+        <!--广告轮播控件相关-->
+
+        <!--广告轮播控件指示器图片-->
+        <attr name="adsIndicator" format="reference"/>
+        <!--广告轮播控件指示器图片间距-->
+        <attr name="adsIndicatorPadding" format="dimension"/>
+        <!--广告轮播控件指示器位置 参考gravity属性-->
+        <attr name="adsIndicatorGravity" format="enum"/>
+        <!--广告循环轮播时间-->
+        <attr name="adsLoopTime" format="integer"/>
+
+        <!--开关控件相关-->
+        <attr name="switchChecked" format="boolean"/>
+        <attr name="switchWidth" format="dimension"/>
+        <attr name="switchHeight" format="dimension"/>
+        <attr name="switchOnText" format="string"/>
+        <attr name="switchOffText" format="string"/>
+
+        <!--下拉刷新相关-->
+        <attr name="swipe_refresh_direction">
+
+            <enum name="top" value="0"/>
+
+            <enum name="bottom" value="1"/>
+
+            <enum name="both" value="2"/>
+
+
+        </attr>
+    </declare-styleable>
+</resources>

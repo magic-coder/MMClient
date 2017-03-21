@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Lib_L01_Settings</string>
+    <string name="settings_account_safe">账号与安全</string>
+    <string name="settings_storage_clear">清除缓存</string>
+    <string name="settings_app_share">分享APP</string>
+    <string name="settings_app_quite">退出APP</string>
+</resources>

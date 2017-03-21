@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/main_home_action_student"
+        android:title="@string/main_home_menu_student"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/main_home_action_teacher"
+        android:title="@string/main_home_menu_teacher"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/main_home_action_doctor"
+        android:title="@string/main_home_menu_doctor"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/main_home_action_upload"
+        android:title="@string/main_home_upload_location"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/main_home_action_clear_my_location"
+        android:title="@string/main_home_clear_my_location"
+        app:showAsAction="never" />
+
+</menu>

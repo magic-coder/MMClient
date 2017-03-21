@@ -1,0 +1,1 @@
+include ':LifeMainClient', ':Lib_C01_CommonLib', ':Lib_F01_Framework', ':Lib_F02_UIComponent', ':Lib_L01_Settings'

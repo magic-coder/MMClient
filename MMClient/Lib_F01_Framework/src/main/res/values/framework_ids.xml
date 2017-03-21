@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--二维码扫描相关-->
+    <item name="decode" type="id" />
+
+    <item name="decode_failed" type="id" />
+
+    <item name="decode_succeeded" type="id" />
+
+    <item name="launch_product_query" type="id" />
+
+    <item name="quit" type="id" />
+
+    <item name="restart_preview" type="id" />
+
+    <item name="return_scan_result" type="id" />
+
+    <item name="viewfinder_view" type="id" />
+
+    <item name="preview_view" type="id" />
+    <!--二维码扫描相关-->
+
+    <!--键盘相关-->
+    <item name="tag_layer_switch_flag" type="id"></item>
+    <item name="tag_edit_text_input_control" type="id"></item>
+    <item name="tag_hidden_text_flag" type="id"></item>
+    <item name="tag_keyboard_height" type="id"></item>
+
+    <!--键盘相关-->
+
+    <!--侧边栏相关-->
+    <item name="drawer_menu_id" type="id"></item>
+    <item name="drawer_menu_class_name" type="id"></item>
+    <!--侧边栏相关-->
+    <!--换字体相关-->
+    <item name="change_text_size_key" type="id"/>
+
+    <!--主题换字体-->
+    <item name="bule_change_text_size_key" type="id"/>
+    <item name="bule_change_text_color_key" type="id"/>
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="settings_line_text_style" parent="@style/normal_text_style">
+        <item name="android:layout_gravity">left</item>
+        <item name="android:layout_marginLeft">@dimen/margin_item_normal_height</item>
+        <item name="android:layout_marginRight">@dimen/margin_item_normal_height</item>
+        <item name="android:paddingBottom">@dimen/text_padding_smaller_size</item>
+        <item name="android:paddingTop">@dimen/text_padding_smaller_size</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="settings_line_layout_style" parent="@style/base_layout_style">
+        <item name="android:paddingLeft">@dimen/text_padding_smaller_size</item>
+        <item name="android:paddingRight">@dimen/text_padding_smaller_size</item>
+    </style>
+</resources>

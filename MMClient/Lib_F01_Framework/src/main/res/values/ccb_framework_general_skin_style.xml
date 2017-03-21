@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--换肤相关-->
+    <style name="generalSkin">
+        <item name="generalSkin">true</item>
+    </style>
+
+    <!--适用于换肤72px字体 确认金额等-->
+    <style name="generalSkin.ccb_text_size_72">
+        <item name="android:textSize">@dimen/x104</item>
+    </style>
+    <!--适用于换肤52px字体-->
+    <style name="generalSkin.ccb_text_size_52">
+        <item name="android:textSize">@dimen/x75</item>
+    </style>
+    <!--适用于换肤42px字体-->
+    <style name="generalSkin.ccb_text_size_42">
+        <item name="android:textSize">@dimen/x60</item>
+    </style>
+    <!--适用于换肤34px字体-->
+    <style name="generalSkin.ccb_text_size_34">
+        <item name="android:textSize">@dimen/x49</item>
+    </style>
+    <!--适用于换肤32px字体-->
+    <style name="generalSkin.ccb_text_size_32">
+        <item name="android:textSize">@dimen/x46</item>
+    </style>
+    <!--适用于换肤30px字体-->
+    <style name="generalSkin.ccb_text_size_30">
+        <item name="android:textSize">@dimen/x43</item>
+    </style>
+    <!--适用于换肤28px字体-->
+    <style name="generalSkin.ccb_text_size_28">
+        <item name="android:textSize">@dimen/x40</item>
+    </style>
+    <!--适用于换肤26px字体-->
+    <style name="generalSkin.ccb_text_size_26">
+        <item name="android:textSize">@dimen/x37</item>
+    </style>
+    <!--适用于换肤24px字体-->
+    <style name="generalSkin.ccb_text_size_24">
+        <item name="android:textSize">@dimen/x35</item>
+    </style>
+
+</resources>

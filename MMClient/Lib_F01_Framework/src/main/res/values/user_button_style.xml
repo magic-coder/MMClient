@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ysh_next_button" parent="button_major_tint_style_40radius">
+        <item name="android:layout_width">@dimen/x749</item>
+        <item name="android:layout_height">@dimen/y115</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_gravity">center|bottom</item>
+        <item name="android:layout_marginTop">@dimen/x86</item>
+        <item name="android:layout_marginBottom">@dimen/y86</item>
+    </style>
+
+    <style name="ysh_next_graybutton" parent="button_minor_tint_style_40radius">
+        <item name="android:layout_width">@dimen/x749</item>
+        <item name="android:layout_height">@dimen/y115</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_gravity">center|bottom</item>
+        <item name="android:layout_marginTop">@dimen/x86</item>
+        <item name="android:layout_marginBottom">@dimen/y86</item>
+    </style>
+
+
+    <style name="ysh_next_graybutton_double" parent="button_minor_tint_style_40radius">
+        <item name="android:layout_width">@dimen/x454</item>
+        <item name="android:layout_height">@dimen/y115</item>
+        <item name="android:layout_marginTop">@dimen/y86</item>
+        <item name="android:layout_marginBottom">@dimen/y86</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/x52</item>
+        <item name="android:minHeight">@dimen/y115</item>
+    </style>
+
+    <style name="ysh_next_graybutton_three" parent="button_minor_tint_style_30radius">
+        <item name="android:layout_width">@dimen/x288</item>
+        <item name="android:layout_height">@dimen/y86</item>
+        <item name="android:layout_marginTop">@dimen/y86</item>
+        <item name="android:layout_marginBottom">@dimen/y86</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/x37</item>
+        <item name="android:minHeight">@dimen/y86</item>
+    </style>
+
+    <style name="ysh_next_graybutton_h60" parent="button_minor_tint_style_30radius">
+        <item name="android:layout_width">@dimen/x562</item>
+        <item name="android:layout_height">@dimen/y86</item>
+        <item name="android:layout_marginTop">@dimen/y86</item>
+        <item name="android:layout_marginBottom">@dimen/y86</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/x37</item>
+        <item name="android:textColor">@color/ccb_form_text_color6</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:minHeight">@dimen/y86</item>
+    </style>
+
+    <style name="ysh_next_button_double" parent="button_major_tint_style_40radius">
+        <item name="android:layout_width">@dimen/x454</item>
+        <item name="android:layout_height">@dimen/y115</item>
+        <item name="android:layout_marginTop">@dimen/y86</item>
+        <item name="android:layout_marginBottom">@dimen/y86</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="ysh_next_button_three" parent="button_major_tint_style_30radius">
+        <item name="android:layout_width">@dimen/x288</item>
+        <item name="android:layout_height">@dimen/y86</item>
+        <item name="android:layout_marginTop">@dimen/y86</item>
+        <item name="android:layout_marginBottom">@dimen/y86</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/x37</item>
+        <item name="android:minHeight">@dimen/y86</item>
+    </style>
+</resources>

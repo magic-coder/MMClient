@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/avatar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="200dip">
+
+        <ImageView
+            android:id="@+id/iv_cover"
+            android:layout_width="100dip"
+            android:layout_height="100dip"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_item_big_height"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_default_avatar" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_item_big_height"
+            android:layout_toRightOf="@id/iv_cover"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/main_menu_nick"
+                style="@style/left_menu_text_style"
+                tools:text="@string/navigation_menu_info_nick" />
+
+            <TextView
+                android:id="@+id/main_menu_level"
+                style="@style/left_menu_text_style"
+                tools:text="@string/navigation_menu_info_level" />
+        </LinearLayout>
+
+        <View
+            style="@style/sep_view_item"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/avatar_layout">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/main_menu_mine"
+                style="@style/left_menu_text_style"
+                android:text="@string/app_mine" />
+
+            <View style="@style/sep_view_item" />
+
+            <TextView
+                android:id="@+id/main_menu_settings"
+                style="@style/left_menu_text_style"
+                android:text="@string/app_settings" />
+
+            <View style="@style/sep_view_item" />
+
+            <TextView
+                android:id="@+id/main_menu_about"
+                style="@style/left_menu_text_style"
+                android:text="@string/app_about" />
+
+            <View style="@style/sep_view_item" />
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

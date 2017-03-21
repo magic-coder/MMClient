@@ -12,7 +12,8 @@ import android.widget.LinearLayout;
 import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.life.mm.framework.R;
-import com.life.mm.framework.utils.GlideUtils;
+import com.life.mm.framework.libwrapper.glide.GlideUtils;
+import com.life.mm.framework.utils.GlideCircleTransform;
 
 /**
  * ProjectName:MMClient <P>
@@ -94,7 +95,8 @@ public abstract class BaseCollapsingActivity extends BaseActivity {
     }
 
     protected void loadHeadImg(String url) {
-        GlideUtils.loadDefault(url, framework_header_img, true, DecodeFormat.DEFAULT, DiskCacheStrategy.SOURCE);
+        GlideUtils.loadDefault(url, framework_header_img, false,
+                DecodeFormat.DEFAULT, new GlideCircleTransform(mContext), DiskCacheStrategy.SOURCE);
     }
     @Override
     protected int getLayoutId() {

@@ -1,12 +1,17 @@
 package com.life.mm.infocenter;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.text.TextUtils;
 
 import com.life.mm.R;
+import com.life.mm.common.config.GlobalConfig;
 import com.life.mm.framework.app.base.activity.BaseCollapsingActivity;
 import com.life.mm.framework.bean.SelectOption;
 import com.life.mm.framework.ui.utils.SlideChooserWindowUtil;
 import com.life.mm.framework.utils.MMUtils;
+import com.life.mm.uicomponent.photopicker.GalleryActivity;
+import com.life.mm.uicomponent.photopicker.GalleryConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +45,7 @@ public class MineInfoActivity extends BaseCollapsingActivity {
         }
     };
     private List<SelectOption> selectOptionList = null;
+    private String headImgPath = null;
     @Override
     protected int getContentLayout() {
         return R.layout.activity_mine_info;
@@ -83,9 +89,35 @@ public class MineInfoActivity extends BaseCollapsingActivity {
         }
     }
 
-    private void selectImageFromGallery() {}
+    private void selectImageFromGallery() {
+        GalleryConfig config = new GalleryConfig.Build()
+                .singlePhoto(true)
+                .build();
+        GalleryActivity.openActivity((Activity) mContext, GlobalConfig.REQUEST_CODE_SELECT_PHOTOS, config);
+    }
 
     private void takePhotos() {}
 
     private void lookBigImage() {}
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (resultCode) {
+            case RESULT_OK:
+                if (requestCode == GlobalConfig.REQUEST_CODE_SELECT_PHOTOS) {
+                    List<String> listPaths = (List<String>) data.getSerializableExtra(GalleryActivity.PHOTOS);
+                    if (MMUtils.isAvaliableList(listPaths)) {
+                        headImgPath = listPaths.get(0);
+                    }
+                    if (!TextUtils.isEmpty(headImgPath)) {
+                        loadHeadImg(headImgPath);
+                    }
+                }
+                break;
+
+            case RESULT_CANCELED:
+                break;
+            default:
+                break;
+        }
+    }
 }

@@ -12,6 +12,7 @@
         <!-- 注册 -->
         <activity android:name=".app.register.RegisterActivity"
             android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

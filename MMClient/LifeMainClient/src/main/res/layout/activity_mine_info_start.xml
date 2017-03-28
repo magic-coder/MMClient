@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout style="@style/white_bkg_selector_layout_style"
+        android:id="@+id/info_head_layout">
+
+        <TextView
+            style="@style/normal_text_style"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:text="@string/info_head_img" />
+
+        <ImageView
+            android:id="@+id/info_start_head_img_arrow"
+            android:layout_width="@dimen/x35"
+            android:layout_height="@dimen/x35"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/right_arrow" />
+
+        <ImageView
+            android:id="@+id/info_start_head_img"
+            android:layout_width="@dimen/x55"
+            android:layout_height="@dimen/x55"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/x8"
+            android:layout_toLeftOf="@id/info_start_head_img_arrow"
+            android:src="@drawable/ic_default_avatar" />
+    </RelativeLayout>
+
+    <View style="@style/sep_view_item" />
+
+    <RelativeLayout style="@style/white_bkg_selector_layout_style"
+        android:id="@+id/info_detail_layout">
+
+        <TextView
+            style="@style/normal_text_style"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:text="@string/info_detail" />
+
+        <ImageView
+            android:layout_width="@dimen/x35"
+            android:layout_height="@dimen/x35"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/right_arrow" />
+    </RelativeLayout>
+
+    <View style="@style/sep_view_item" />
+
+    <RelativeLayout style="@style/white_bkg_selector_layout_style"
+        android:id="@+id/info_photo_album_layout">
+
+        <TextView
+            style="@style/normal_text_style"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:text="@string/info_photo_album" />
+
+        <ImageView
+            android:layout_width="@dimen/x35"
+            android:layout_height="@dimen/x35"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/right_arrow" />
+    </RelativeLayout>
+
+    <View style="@style/sep_view_item" />
+
+    <RelativeLayout style="@style/white_bkg_selector_layout_style"
+        android:id="@+id/info_card_layout">
+
+        <TextView
+            style="@style/normal_text_style"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:text="@string/info_card" />
+
+        <ImageView
+            android:layout_width="@dimen/x35"
+            android:layout_height="@dimen/x35"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/right_arrow" />
+    </RelativeLayout>
+
+    <View style="@style/sep_view_item" />
+
+    <RelativeLayout style="@style/white_bkg_selector_layout_style"
+        android:id="@+id/hobby_show_settings_layout">
+
+        <TextView
+            style="@style/normal_text_style"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:text="@string/info_hobby_show_settings" />
+
+        <ImageView
+            android:layout_width="@dimen/x35"
+            android:layout_height="@dimen/x35"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/right_arrow" />
+    </RelativeLayout>
+
+    <View style="@style/sep_view_item" />
+</LinearLayout>

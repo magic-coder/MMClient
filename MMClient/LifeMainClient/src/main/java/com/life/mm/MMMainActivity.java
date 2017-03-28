@@ -11,14 +11,18 @@ import android.os.Message;
 import android.os.Process;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.load.DecodeFormat;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.life.mm.app.MainDynamicFragment;
 import com.life.mm.app.MainFriendsFragment;
 import com.life.mm.app.MainHomeFragment;
@@ -31,7 +35,11 @@ import com.life.mm.framework.app.base.activity.BaseActivity;
 import com.life.mm.framework.app.base.adapter.BaseFragmentAdapter;
 import com.life.mm.framework.app.base.fragment.BaseFragment;
 import com.life.mm.framework.app.login.LoginActivity;
+import com.life.mm.framework.libwrapper.glide.GlideCircleTransform;
+import com.life.mm.framework.libwrapper.glide.GlideUtils;
 import com.life.mm.framework.skin.CcbSkinColorTool;
+import com.life.mm.framework.user.CustomUser;
+import com.life.mm.framework.utils.MMUtils;
 import com.life.mm.infocenter.MineInfoActivity;
 import com.mm.life.settings.SettingsActivity;
 
@@ -83,6 +91,10 @@ public class MMMainActivity extends BaseActivity {
     private RadioButton radio_button_dynamic = null;        //动态
     private RadioButton radio_button_info_center = null;    //个人中心
 
+    private ImageView main_menu_cover = null;
+    private TextView main_menu_nick = null;
+    private TextView main_menu_level = null;
+
     private TextView main_menu_mine = null;
     private TextView main_menu_settings = null;
     private TextView main_menu_about = null;
@@ -105,12 +117,12 @@ public class MMMainActivity extends BaseActivity {
         public void onClick(View v) {
             slidingPaneLayout.closePane();
             switch (v.getId()) {
+                case R.id.main_menu_cover:
+                    goMyInfoCenter();
+                    break;
+
                 case R.id.main_menu_mine:
-                    if (!MMApplication.getInstance().isLogin()) {
-                        ActivityHelper.goActivity(mContext, LoginActivity.class, null);
-                    } else {
-                        ActivityHelper.goActivity(mContext, MineInfoActivity.class, null);
-                    }
+                    goMyInfoCenter();
                     break;
 
                 case R.id.main_menu_settings:
@@ -124,6 +136,14 @@ public class MMMainActivity extends BaseActivity {
             }
         }
     };
+
+    private void goMyInfoCenter() {
+        if (!MMApplication.getInstance().isLogin()) {
+            ActivityHelper.goActivity(mContext, LoginActivity.class, null);
+        } else {
+            ActivityHelper.goActivity(mContext, MineInfoActivity.class, null);
+        }
+    }
 
     private void switchTab(View view) {
         //mMenu.clear();
@@ -173,15 +193,31 @@ public class MMMainActivity extends BaseActivity {
         super.initLeftMenu(contentRootView);
         findMenuView(contentRootView);
         setLeftMenuClickListener();
+        setMenuView();
+    }
+
+    private void setMenuView() {
+        CustomUser customUser = MMApplication.getInstance().getCustomUser();
+        if (null != customUser) {
+            String nickName = customUser.getNickName();
+            if (!TextUtils.isEmpty(nickName)) {
+                main_menu_nick.setText(MMUtils.getFormatSpan(mContext, R.string.navigation_menu_info_nick, customUser.getNickName()));
+            }
+        }
     }
 
     private void findMenuView(View contentRootView) {
+        this.main_menu_cover = (ImageView) contentRootView.findViewById(R.id.main_menu_cover);
+        this.main_menu_nick = (TextView) contentRootView.findViewById(R.id.main_menu_nick);
+        this.main_menu_level = (TextView) contentRootView.findViewById(R.id.main_menu_level);
+
         this.main_menu_mine = (TextView) contentRootView.findViewById(R.id.main_menu_mine);
         this.main_menu_settings = (TextView) contentRootView.findViewById(R.id.main_menu_settings);
         this.main_menu_about = (TextView) contentRootView.findViewById(R.id.main_menu_about);
     }
 
     private void setLeftMenuClickListener() {
+        this.main_menu_cover.setOnClickListener(leftMenuClickListener);
         this.main_menu_mine.setOnClickListener(leftMenuClickListener);
         this.main_menu_settings.setOnClickListener(leftMenuClickListener);
         this.main_menu_about.setOnClickListener(leftMenuClickListener);
@@ -430,5 +466,14 @@ public class MMMainActivity extends BaseActivity {
 
     public interface OnMenuInflateListener {
         void onMenuInflated(Menu menu);
+    }
+
+    @Override
+    protected void onLeftMenuOpened(View panel) {
+        super.onLeftMenuOpened(panel);
+        CustomUser customUser = MMApplication.getInstance().getCustomUser();
+        if (null != customUser && !TextUtils.isEmpty(customUser.getHeadUrl())) {
+            GlideUtils.loadHeadImg(customUser.getHeadUrl(), main_menu_cover, false, DecodeFormat.DEFAULT, new GlideCircleTransform(mContext), DiskCacheStrategy.SOURCE);
+        }
     }
 }

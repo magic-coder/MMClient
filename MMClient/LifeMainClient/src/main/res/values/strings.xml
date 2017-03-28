@@ -33,4 +33,27 @@
     <string name="mine_info_like">兴趣爱好</string>
     <string name="mine_info_do_latest">最近做了什么</string>
     <string name="mine_info_more">更多的我</string>
+    
+    <string name="info_head_img">头像</string>
+    <string name="info_detail">详细资料</string>
+    <string name="info_photo_album">照片墙</string>
+    <string name="info_card">名片</string>
+    <string name="info_hobby_show_settings">兴趣爱好展示设置</string>
+
+    <string name="info_nick_name">昵称</string>
+    <string name="info_gender">性别</string>
+    <string name="info_age">年龄</string>
+    <string name="info_birthday">生日</string>
+    <string name="info_constellation">星座</string>
+    <string name="info_occupation">职业</string>
+    <string name="info_company">公司</string>
+    <string name="info_school">学校</string>
+    <string name="info_current_address">所在地</string>
+    <string name="info_hometown_address">故乡</string>
+    <string name="info_email">邮箱</string>
+    <string name="info_self_description">个人说明</string>
+    <string name="info_self_des_hints">介绍下自己吧</string>
+
+    <string name="info_detail_title">详细资料</string>
+    <string name="info_edit_title">编辑资料</string>
 </resources>

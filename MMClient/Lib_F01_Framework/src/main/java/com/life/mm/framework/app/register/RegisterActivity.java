@@ -18,7 +18,7 @@ import com.life.mm.framework.utils.ToastUtil;
  * PackageName: com.life.mm.register <p>
  * ClassName: ${CLASS_NAME}<P>
  * Created by zfang on 2017/3/15 10:32. <P>
- * Function: <P>
+ * Function: 用户名密码注册<P>
  * Modified: <P>
  */
 

@@ -5,4 +5,11 @@
         <item>拍照</item>
         <item>查看大图</item>
     </string-array>
+
+    <string-array name="head_options2_array">
+        <item>拍摄动态头像</item>
+        <item>从相册选择图片</item>
+        <item>拍照</item>
+        <item>查看大图</item>
+    </string-array>
 </resources>

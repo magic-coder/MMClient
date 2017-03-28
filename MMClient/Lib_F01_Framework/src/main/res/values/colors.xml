@@ -20,6 +20,7 @@
     <color name="red_6666">#FF6666</color>
     <color name="gray">#3f000000</color>
     <color name="green_price">#77CA83</color>
+    <color name="gray_light">#e5e5e5</color>
     <!--配色-->
     <color name="primary_night">#212121</color>
     <color name="primary_dark_night">#000000</color>

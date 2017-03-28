@@ -1,7 +1,6 @@
 package com.life.mm.framework.map;
 
 import android.content.Context;
-import android.text.TextUtils;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
@@ -83,7 +82,7 @@ public class LocationManager {
         //初始化client
         locationClient = new AMapLocationClient(context);
         //设置定位参数
-        locationClient.setLocationOption(getDefaultOption());
+        locationClient.setLocationOption(locationOption);
         // 设置定位监听
         locationClient.setLocationListener(locationListener);
     }
@@ -97,7 +96,7 @@ public class LocationManager {
         mOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);//可选，设置定位模式，可选的模式有高精度、仅设备、仅网络。默认为高精度模式
         mOption.setGpsFirst(false);//可选，设置是否gps优先，只在高精度模式下有效。默认关闭
         mOption.setHttpTimeOut(30000);//可选，设置网络请求超时时间。默认为30秒。在仅设备模式下无效
-        mOption.setInterval(2000);//可选，设置定位间隔。默认为2秒
+        mOption.setInterval(2 * 60 * 1000);//可选，设置定位间隔。默认为2秒
         mOption.setNeedAddress(true);//可选，设置是否返回逆地理地址信息。默认是true
         mOption.setOnceLocation(false);//可选，设置是否单次定位。默认是false
         mOption.setOnceLocationLatest(false);//可选，设置是否等待wifi刷新，默认为false.如果设置为true,会自动变为单次定位，持续定位时不要使用
@@ -124,7 +123,7 @@ public class LocationManager {
                     }
                 }
             } else {
-                //MMLogManager.logE(TAG + ", 定位失败");
+                MMLogManager.logE(TAG + ", 定位失败");
             }
         }
     };
@@ -151,9 +150,10 @@ public class LocationManager {
     }
 
     // 根据控件的选择，重新设置定位参数
-    private void resetOption() {
+    private void resetOption() {//单位定位
         // 设置是否需要显示地址信息
         locationOption.setNeedAddress(true);
+        locationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
         /**
          * 设置是否优先返回GPS定位结果，如果30秒内GPS没有返回定位结果则进行网络定位
          * 注意：只有在高精度模式下的单次定位有效，其他方式无效
@@ -168,25 +168,9 @@ public class LocationManager {
         //设置是否使用传感器
         locationOption.setSensorEnable(true);
         //设置是否开启wifi扫描，如果设置为false时同时会停止主动刷新，停止以后完全依赖于系统刷新，定位位置可能存在误差
-        String strInterval = "10000";
-        if (!TextUtils.isEmpty(strInterval)) {
-            try{
-                // 设置发送定位请求的时间间隔,最小值为1000，如果小于1000，按照1000算
-                locationOption.setInterval(Long.valueOf(strInterval));
-            }catch(Throwable e){
-                e.printStackTrace();
-            }
-        }
-
-        String strTimeout = "1500";
-        if(!TextUtils.isEmpty(strTimeout)){
-            try{
-                // 设置网络请求超时时间
-                locationOption.setHttpTimeOut(Long.valueOf(strTimeout));
-            }catch(Throwable e){
-                e.printStackTrace();
-            }
-        }
+        locationOption.setInterval(2 * 1000);
+        // 设置网络请求超时时间
+        locationOption.setHttpTimeOut(1500);
     }
 
     /**

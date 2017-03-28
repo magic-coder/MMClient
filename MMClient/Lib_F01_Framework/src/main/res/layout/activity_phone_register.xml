@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/base_layout_style"
+    android:orientation="vertical"
+    tools:context=".app.register.PhoneRegisterActivity">
+
+    <LinearLayout style="@style/base_layout_style">
+
+        <TextView
+            style="@style/white_bkg_normal_text_style"
+            android:text="@string/register_phone_number" />
+
+        <EditText
+            android:id="@+id/phone_register_number"
+            style="@style/login_edit_style"
+            android:hint="@string/register_phone_input_hint"
+            android:inputType="phone" />
+    </LinearLayout>
+
+    <View style="@style/sep_view_item" />
+
+    <LinearLayout
+        style="@style/base_layout_style"
+        android:background="@color/white"
+        android:visibility="gone">
+
+        <TextView
+            style="@style/white_bkg_normal_text_style"
+            android:text="@string/register_phone_verify_code" />
+
+        <EditText
+            android:id="@+id/phone_register_verify_code"
+            style="@style/login_edit_style"
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            android:hint="@string/register_phone_verify_code_hint"
+            android:inputType="phone" />
+
+        <Button
+            android:id="@+id/phone_register_request_verify_code"
+            style="@style/ysh_next_button_three"
+            android:layout_marginBottom="0dip"
+            android:layout_marginRight="@dimen/x43"
+            android:layout_marginTop="0dip"
+            android:text="@string/register_phone_request_verify_code"
+            android:visibility="gone"/>
+    </LinearLayout>
+
+    <View style="@style/sep_view_item" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/phone_register_next"
+            style="@style/common_next_button"
+            android:text="@string/common_next_step" />
+    </RelativeLayout>
+</LinearLayout>

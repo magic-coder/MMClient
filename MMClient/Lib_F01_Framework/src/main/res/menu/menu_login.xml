@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/login_menu_phone_register"
+        android:checked="true"
+        android:icon="@drawable/ic_news_black"
+        android:title="@string/sign_menu_phone_register"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/login_menu_email_register"
+        android:icon="@drawable/ic_ondemand_video_black"
+        android:title="@string/sign_menu_email_register"
+        app:showAsAction="ifRoom" />
+
+</menu>

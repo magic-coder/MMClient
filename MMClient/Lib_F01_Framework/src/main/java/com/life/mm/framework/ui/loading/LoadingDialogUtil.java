@@ -28,6 +28,10 @@ public class LoadingDialogUtil {
         LoadingDialog.getInstance().showErrorDlg(status, content);
     }
 
+    public static void showSuccessDlgOneBtn(String title, String content, final DlgConfirmListener confirmListener) {
+        LoadingDialog.getInstance().showSuccessDlgOneBtn(title, content, confirmListener);
+    }
+
 
     public static void dismiss() {
         LoadingDialog.getInstance().dismiss();

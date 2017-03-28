@@ -6,11 +6,15 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdate;
@@ -32,6 +36,7 @@ import com.amap.api.services.core.AMapException;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.geocoder.GeocodeResult;
 import com.amap.api.services.geocoder.GeocodeSearch;
+import com.amap.api.services.geocoder.RegeocodeAddress;
 import com.amap.api.services.geocoder.RegeocodeQuery;
 import com.amap.api.services.geocoder.RegeocodeResult;
 import com.amap.api.services.nearby.NearbyInfo;
@@ -42,6 +47,7 @@ import com.amap.api.services.nearby.UploadInfo;
 import com.amap.api.services.nearby.UploadInfoCallback;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.SaveCallback;
 import com.google.gson.Gson;
 import com.life.mm.MMMainActivity;
@@ -58,13 +64,17 @@ import com.life.mm.framework.map.CloudOverlay;
 import com.life.mm.framework.map.LocationManager;
 import com.life.mm.framework.map.LocationResult;
 import com.life.mm.framework.map.LocationResultListener;
+import com.life.mm.framework.user.CustomUser;
+import com.life.mm.framework.user.DevUser;
+import com.life.mm.framework.user.OnQueryUserCallback;
+import com.life.mm.framework.user.UserManager;
 import com.life.mm.framework.utils.AMapUtil;
-import com.life.mm.framework.utils.MMUtils;
 import com.life.mm.framework.utils.SensorEventHelper;
 import com.life.mm.framework.utils.ToastUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -113,11 +123,15 @@ public class MainHomeFragment extends BaseFragment<MainPresenter> {
     private String mLocalCityName = "广州";
     private ArrayList<CloudItem> mCloudItemSearyByIds = new ArrayList<CloudItem>();
     private int searchDistance = 5 * 1000;//5km
+    private int searchTimeRange = 10000;
+    private LatLonPoint lastCenterPoint = null;
     private LatLonPoint mCenterPoint = null;
     private NearbySearch mNearbySearch = null;
     private List<Marker> nearbyMarkerList = new ArrayList<>();
+    private HashMap<Marker, String> markerMap = new HashMap<>();
     private boolean uploadInfo = false;
     private GeocodeSearch geocodeSearch = null;
+    private ExecutorService mExecutorService = null;
 
     private MMMainActivity.OnMenuInflateListener onMenuInflateListener = new MMMainActivity.OnMenuInflateListener() {
         @Override
@@ -142,39 +156,41 @@ public class MainHomeFragment extends BaseFragment<MainPresenter> {
         public void onNearbyInfoSearched(NearbySearchResult nearbySearchResult, int resultCode) {
             MMLogManager.logD(TAG + ", onNearbyInfoSearched, resultCode = " + resultCode);
             //搜索周边附近用户回调处理
-            if (resultCode == 1000) {
+            if (resultCode == AMapException.CODE_AMAP_SUCCESS) {
                 nearbyMarkerList.clear();
+                markerMap.clear();
                 if (nearbySearchResult != null && nearbySearchResult.getNearbyInfoList() != null
                         && nearbySearchResult.getNearbyInfoList().size() > 0) {
                     List<NearbyInfo> nearbyInfoList = nearbySearchResult.getNearbyInfoList();
-                    for (NearbyInfo nearbyInfo : nearbyInfoList) {
+                    if (null == mExecutorService) {
+                        mExecutorService = Executors.newSingleThreadExecutor();
+                    }
+                    if (null == geocodeSearch) {
+                        geocodeSearch = new GeocodeSearch(mContext);
+                        geocodeSearch.setOnGeocodeSearchListener(geocodeSearchListener);
+                    }
+                    for (final NearbyInfo nearbyInfo : nearbyInfoList) {
                         MMLogManager.logD(TAG + ", nearbyInfo = [ userID = " + nearbyInfo.getUserID()
                                 + ", distances = " + nearbyInfo.getDistance()
                                 + ", drivingDistance = " + nearbyInfo.getDrivingDistance()
                                 + ", point = " + nearbyInfo.getPoint()
                                 + ", timeStamp = " + DateUtil.timeStamp2DateStr(nearbyInfo.getTimeStamp()));
-                        Bitmap bMap = BitmapFactory.decodeResource(getResources(), R.drawable.map_icon_default);
-                        BitmapDescriptor des = BitmapDescriptorFactory.fromBitmap(bMap);
-                        MarkerOptions options = new MarkerOptions();
-                        options.icon(des);
-                        options.anchor(0.5f, 0.5f);
-                        options.position(new LatLng(nearbyInfo.getPoint().getLatitude(), nearbyInfo.getPoint().getLongitude()));
+                        mExecutorService.submit(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    RegeocodeQuery query = new RegeocodeQuery(nearbyInfo.getPoint(), 200, GeocodeSearch.AMAP);
+                                    RegeocodeAddress regeocodeAddress = geocodeSearch.getFromLocation(query);
 
-                        Marker marker = aMap.addMarker(options);
-                        nearbyMarkerList.add(marker);
-                        marker.setTitle("附近搜索测试");
-                    }
+                                    Marker marker = addMarker(nearbyInfo.getPoint(), regeocodeAddress.getFormatAddress(), R.drawable.map_icon_default);
 
-                    if (MMUtils.isAvaliableList(nearbyMarkerList)) {
-                        if (null == geocodeSearch) {
-                            geocodeSearch = new GeocodeSearch(mContext);
-                            geocodeSearch.setOnGeocodeSearchListener(geocodeSearchListener);
-                        }
-                        if (1 == nearbyMarkerList.size()) {
-                            LatLonPoint latLonPoint = new LatLonPoint(nearbyMarkerList.get(0).getPosition().latitude, nearbyMarkerList.get(0).getPosition().longitude);
-                            RegeocodeQuery query = new RegeocodeQuery(latLonPoint, 200, GeocodeSearch.AMAP);
-                            geocodeSearch.getFromLocationAsyn(query);
-                        }
+                                    nearbyMarkerList.add(marker);
+                                    markerMap.put(marker, nearbyInfo.getUserID());
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
                     }
                 } else {
                     ToastUtil.show(mContext, mResources.getString(R.string.main_home_tips_nearby_search_empty));
@@ -195,7 +211,7 @@ public class MainHomeFragment extends BaseFragment<MainPresenter> {
 
     private GeocodeSearch.OnGeocodeSearchListener geocodeSearchListener = new GeocodeSearch.OnGeocodeSearchListener() {
         @Override
-        public void onRegeocodeSearched(RegeocodeResult result, int rCode) {
+        public void onRegeocodeSearched(RegeocodeResult result, int rCode) {//反地理编码，经纬度转地址
             if (rCode == AMapException.CODE_AMAP_SUCCESS) {
                 if (result != null && result.getRegeocodeAddress() != null
                         && result.getRegeocodeAddress().getFormatAddress() != null) {
@@ -207,7 +223,7 @@ public class MainHomeFragment extends BaseFragment<MainPresenter> {
         }
 
         @Override
-        public void onGeocodeSearched(GeocodeResult geocodeResult, int i) {
+        public void onGeocodeSearched(GeocodeResult geocodeResult, int i) {//地址转经纬度
 
         }
     };
@@ -216,22 +232,25 @@ public class MainHomeFragment extends BaseFragment<MainPresenter> {
         @Override
         public void onLocationResult(LocationResult result) {
             LatLng location = new LatLng(Double.parseDouble(result.getLat()), Double.parseDouble(result.getLng()));
+            if (null != mCenterPoint) {
+                lastCenterPoint = mCenterPoint.copy();
+            }
             mCenterPoint = new LatLonPoint(Double.parseDouble(result.getLat()), Double.parseDouble(result.getLng()));
             if (!mFirstFix) {
                 mFirstFix = true;
                 addCircle(location, Double.parseDouble(result.getAccuracy()));//添加定位精度圆
-                addMarker(location, result.getAddress());//添加定位图标
+                addMarker(location, result.getAddress(), R.drawable.navi_map_gps_locked);//添加定位图标
                 mSensorHelper.setCurrentMarker(mLocMarker);//定位图标旋转
+                changeCamera(true, 500, CameraUpdateFactory.newLatLngZoom(location, currentMapLevel), null);
             } else {
                 mCircle.setCenter(location);
                 mCircle.setRadius(Double.parseDouble(result.getAccuracy()));
                 mLocMarker.setPosition(location);
             }
-            changeCamera(true, 500, CameraUpdateFactory.newLatLngZoom(location, currentMapLevel), null);
-            searchByBound();
-            if (!uploadInfo) {
-                uploadInfo = true;
-                //upLoadNearbyInfo();
+
+            //位置发生改变重新搜索附近的人
+            if (mCenterPoint.equals(lastCenterPoint)) {
+                searchByBound();
                 upload2YunTu(result);
             }
         }
@@ -250,7 +269,7 @@ public class MainHomeFragment extends BaseFragment<MainPresenter> {
                     addCircle(mCircle.getCenter(), mCircle.getRadius());
                 }
                 if (null != mLocMarker) {
-                    addMarker(mLocMarker.getPosition(), mLocMarker.getTitle());
+                    addMarker(mLocMarker.getPosition(), mLocMarker.getTitle(), R.drawable.navi_map_gps_locked);
                 }
                 LatLng position = AMapUtil.convertToLatLng(item.getLatLonPoint());
                 //aMap.animateCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(position, 18, 0, 30)));
@@ -290,19 +309,21 @@ public class MainHomeFragment extends BaseFragment<MainPresenter> {
 
             if (rCode == AMapException.CODE_AMAP_SUCCESS) {
                 if (result != null && result.getQuery() != null) {
-                    if (result.getQuery().equals(mQuery)) {
+                    if (!result.getQuery().equals(mQuery)) {
+                        if (null != mPoiCloudOverlay) {
+                            mPoiCloudOverlay.removeFromMap();
+                        }
                         mCloudItems = result.getClouds();
-                        clearMap();
+                        /*clearMap();
                         if (null != mCircle) {
                             addCircle(mCircle.getCenter(), mCircle.getRadius());
                         }
                         if (null != mLocMarker) {
                             addMarker(mLocMarker.getPosition(), mLocMarker.getTitle());
-                        }
+                        }*/
 
                         if (mCloudItems != null && mCloudItems.size() > 0) {
                             mPoiCloudOverlay = new CloudOverlay(aMap, mCloudItems);
-                            mPoiCloudOverlay.removeFromMap();
                             mPoiCloudOverlay.addToMap();
                             for (CloudItem item : mCloudItems) {
                                 mCloudItemSearyByIds.add(item);
@@ -471,16 +492,73 @@ public class MainHomeFragment extends BaseFragment<MainPresenter> {
                 return true;
             }
         });
+        setInfoWindowAdatper();
+    }
+
+
+    private void setInfoWindowAdatper() {
+        aMap.setInfoWindowAdapter(new AMap.InfoWindowAdapter() {
+            @Override
+            public View getInfoWindow(Marker marker) {
+                return null;
+            }
+
+            @Override
+            public View getInfoContents(Marker marker) {
+                View infoContentsView = mLayoutInflater.inflate(R.layout.custom_info_window, (ViewGroup) getActivity().getWindow().getDecorView(), false);
+                final ImageView info_window_head_img = (ImageView) infoContentsView.findViewById(R.id.info_window_head_img);
+                final TextView info_window_nickname = (TextView) infoContentsView.findViewById(R.id.info_window_nickname);
+                final TextView info_window_self_description = (TextView) infoContentsView.findViewById(R.id.info_window_self_description);
+
+
+                //1 设置头像
+                CustomUser user = AVUser.getCurrentUser(CustomUser.class);
+                if (null != user) {//点击的Marker属于当前登陆的用户，不用异步查找
+                    if (user.getObjectId().equals(markerMap.get(marker))) {
+                        String headUrl = user.getHeadUrl();
+                        String nickName = user.getNickName();
+                        String selfDescription = user.getSelfDescription();
+                        if (!TextUtils.isEmpty(headUrl)) {
+                            load2Img(info_window_head_img, headUrl);
+                        }
+                        info_window_nickname.setText(TextUtils.isEmpty(nickName) ? mResources.getString(R.string.nick_name_empty_boy_tips) : nickName);
+                        info_window_self_description.setText(TextUtils.isEmpty(selfDescription) ? mResources.getString(R.string.simple_info_self_description_tips) : selfDescription);
+
+                        return infoContentsView;
+                    }
+                }
+
+                //点击的Marker不属于当前登陆用户需要异步到LeanCloud查找当前用户信息.
+                UserManager.getInstance().queryDevUser(MainHomeFragment.this, markerMap.get(marker), new OnQueryUserCallback<DevUser>() {
+                    @Override
+                    public void onGetUser(DevUser user) {
+                        String headUrl = user.getHeadUrl();
+                        String nickName = user.getNickName();
+                        String selfDescription = user.getSelfDescription();
+                        if (!TextUtils.isEmpty(headUrl)) {
+                            load2Img(info_window_head_img, headUrl);
+                        }
+                        info_window_nickname.setText(TextUtils.isEmpty(nickName) ? mResources.getString(R.string.nick_name_empty_boy_tips) : nickName);
+                        info_window_self_description.setText(TextUtils.isEmpty(selfDescription) ? mResources.getString(R.string.simple_info_self_description_tips) : selfDescription);
+                    }
+                });
+
+
+                return infoContentsView;
+            }
+        });
     }
 
 
     private void setInfoWindow(Marker marker) {
-        if (marker.isInfoWindowEnable()) {
-            if (marker.isInfoWindowShown()) {
-                marker.hideInfoWindow();
-            } else {
-                marker.showInfoWindow();
-                changeCamera(true, 500, CameraUpdateFactory.newLatLngZoom(marker.getPosition(), currentMapLevel), null);
+        synchronized (this) {
+            if (marker.isInfoWindowEnable()) {
+                if (marker.isInfoWindowShown()) {
+                    marker.hideInfoWindow();
+                } else {
+                    marker.showInfoWindow();
+                    changeCamera(true, 500, CameraUpdateFactory.newLatLngZoom(marker.getPosition(), currentMapLevel), null);
+                }
             }
         }
     }
@@ -513,7 +591,7 @@ public class MainHomeFragment extends BaseFragment<MainPresenter> {
                 UploadInfo uploadInfo = new UploadInfo();
                 uploadInfo.setCoordType(NearbySearch.AMAP);//坐标类型
                 uploadInfo.setPoint(mCenterPoint);
-                uploadInfo.setUserID("13059541309");
+                uploadInfo.setUserID(MMApplication.getInstance().getCustomUser().getUsername());
                 return uploadInfo;
             }
         }, 5 * 60 * 1000);
@@ -526,12 +604,12 @@ public class MainHomeFragment extends BaseFragment<MainPresenter> {
         UploadInfo loadInfo = new UploadInfo();
         loadInfo.setCoordType(NearbySearch.AMAP);
         loadInfo.setPoint(mCenterPoint);
-        loadInfo.setUserID("13710762294");
+        loadInfo.setUserID(MMApplication.getInstance().getCustomUser().getUsername());
         NearbySearch.getInstance(mContext).uploadNearbyInfoAsyn(loadInfo);
     }
 
     private void clearMyNearbyLocationInfo() {
-        mNearbySearch.setUserID("13059541309");
+        mNearbySearch.setUserID(MMApplication.getInstance().getCustomUser().getUsername());
         NearbySearch.getInstance(mContext).clearUserInfoAsyn();
     }
     private void upload2YunTu(LocationResult result) {
@@ -541,7 +619,7 @@ public class MainHomeFragment extends BaseFragment<MainPresenter> {
         Gson gson = new Gson();
 
         YunTuDataBean data = new YunTuDataBean();
-        data.set_name("test");
+        data.set_name(result.getPoiName());
         data.set_location(result.getLng() + "," + result.getLat());
         data.setCoordtype("autonavi");
         data.set_address(result.getAddress());
@@ -561,13 +639,10 @@ public class MainHomeFragment extends BaseFragment<MainPresenter> {
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-
-
                 MMLogManager.logD(TAG + ", upload2YunTu, result = " + response.toString() + ",\n body = " + response.body().string());
             }
         });
@@ -596,18 +671,23 @@ public class MainHomeFragment extends BaseFragment<MainPresenter> {
         mCircle = aMap.addCircle(options);
     }
 
+    private Marker addMarker(LatLonPoint latLonPoint, String title, int drawableId) {
+        return addMarker(new LatLng(latLonPoint.getLatitude(), latLonPoint.getLongitude()), title, drawableId);
+    }
+
     /**
      * 添加Marker
      */
-    private void addMarker(LatLng latlng, String title) {
-        Bitmap bMap = BitmapFactory.decodeResource(this.getResources(), R.drawable.navi_map_gps_locked);
+    private Marker addMarker(LatLng latlng, String title, int drawableId) {
+        Bitmap bMap = BitmapFactory.decodeResource(this.getResources(), drawableId);
         BitmapDescriptor des = BitmapDescriptorFactory.fromBitmap(bMap);
         MarkerOptions options = new MarkerOptions();
         options.icon(des);
         options.anchor(0.5f, 0.5f);
         options.position(latlng);
-        mLocMarker = aMap.addMarker(options);
-        mLocMarker.setTitle(title);
+        Marker marker = aMap.addMarker(options);
+        marker.setTitle(title);
+        return marker;
     }
     private ExecutorService executorService = null;
     private ScheduledThreadPoolExecutor executor = null;
@@ -727,7 +807,7 @@ public class MainHomeFragment extends BaseFragment<MainPresenter> {
         query.setCenterPoint(mCenterPoint);
         query.setCoordType(NearbySearch.AMAP);
         query.setRadius(searchDistance);
-        query.setTimeRange(10000);
+        query.setTimeRange(searchTimeRange);
         query.setType(NearbySearchFunctionType.DRIVING_DISTANCE_SEARCH);
         NearbySearch.getInstance(mContext).searchNearbyInfoAsyn(query);
     }
@@ -764,5 +844,8 @@ public class MainHomeFragment extends BaseFragment<MainPresenter> {
         locationManager.stopLocation();
         locationManager.destroyLocation();
         NearbySearch.destroy();
+        if (null != mExecutorService && !mExecutorService.isShutdown()) {
+            mExecutorService.shutdownNow();
+        }
     }
 }

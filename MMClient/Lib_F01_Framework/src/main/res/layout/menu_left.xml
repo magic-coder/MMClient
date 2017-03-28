@@ -10,7 +10,7 @@
         android:layout_height="200dip">
 
         <ImageView
-            android:id="@+id/iv_cover"
+            android:id="@+id/main_menu_cover"
             android:layout_width="100dip"
             android:layout_height="100dip"
             android:layout_centerVertical="true"
@@ -23,17 +23,20 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/margin_item_big_height"
-            android:layout_toRightOf="@id/iv_cover"
+            android:layout_toRightOf="@id/main_menu_cover"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/main_menu_nick"
-                style="@style/left_menu_text_style"
+                style="@style/normal_text_style"
+                android:textSize="@dimen/text_biggest_size"
                 tools:text="@string/navigation_menu_info_nick" />
 
             <TextView
                 android:id="@+id/main_menu_level"
-                style="@style/left_menu_text_style"
+                style="@style/normal_text_style"
+                android:textSize="@dimen/text_biggest_size"
+                android:visibility="gone"
                 tools:text="@string/navigation_menu_info_level" />
         </LinearLayout>
 

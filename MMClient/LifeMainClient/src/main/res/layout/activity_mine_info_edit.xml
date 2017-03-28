@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout style="@style/white_bkg_selector_layout_style">
+
+        <TextView
+            style="@style/normal_text_style"
+            android:layout_width="@dimen/x225"
+            android:text="@string/info_nick_name" />
+
+        <com.life.mm.framework.ui.widget.CcbEditText
+            android:id="@+id/info_edit_nickname_text"
+            style="@style/normal_text_style"
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            tools:text="@string/info_nick_name" />
+    </LinearLayout>
+
+    <View style="@style/sep_view_item" />
+
+    <LinearLayout
+        android:id="@+id/info_edit_gender_layout"
+        style="@style/white_bkg_selector_layout_style">
+
+        <TextView
+            style="@style/normal_text_style"
+            android:layout_width="@dimen/x225"
+            android:text="@string/info_gender" />
+
+        <TextView
+            android:id="@+id/info_edit_gender_text"
+            style="@style/normal_text_style"
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            tools:text="@string/info_gender" />
+    </LinearLayout>
+
+    <View style="@style/sep_view_item" />
+
+    <LinearLayout
+        android:id="@+id/info_edit_age_layout"
+        style="@style/white_bkg_selector_layout_style">
+
+        <TextView
+            style="@style/normal_text_style"
+            android:layout_width="@dimen/x225"
+            android:text="@string/info_age" />
+
+        <TextView
+            android:id="@+id/info_edit_age_text"
+            style="@style/normal_text_style"
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            tools:text="@string/info_age" />
+
+        <ImageView style="@style/right_arrow_x35_style" />
+
+    </LinearLayout>
+
+    <View style="@style/sep_view_item" />
+
+    <LinearLayout
+        android:id="@+id/info_edit_birthday_layout"
+        style="@style/white_bkg_selector_layout_style">
+
+        <TextView
+            style="@style/normal_text_style"
+            android:layout_width="@dimen/x225"
+            android:text="@string/info_birthday" />
+
+        <TextView
+            android:id="@+id/info_edit_birthday_text"
+            style="@style/normal_text_style"
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            tools:text="@string/info_birthday" />
+
+        <ImageView style="@style/right_arrow_x35_style" />
+    </LinearLayout>
+
+    <View style="@style/sep_view_item" />
+
+    <LinearLayout
+        android:id="@+id/info_edit_constellation_layout"
+        style="@style/white_bkg_selector_layout_style">
+
+        <TextView
+            style="@style/normal_text_style"
+            android:layout_width="@dimen/x225"
+            android:text="@string/info_constellation" />
+
+        <TextView
+            android:id="@+id/info_edit_constellation_text"
+            style="@style/normal_text_style"
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            tools:text="@string/info_constellation" />
+
+        <ImageView style="@style/right_arrow_x35_style" />
+    </LinearLayout>
+
+    <View style="@style/sep_view_item" />
+
+    <View
+        style="@style/sep_view_item"
+        android:layout_marginTop="@dimen/margin_item_normal_height" />
+
+    <LinearLayout
+        android:id="@+id/info_edit_occupation_layout"
+        style="@style/white_bkg_selector_layout_style">
+
+        <TextView
+            style="@style/normal_text_style"
+            android:layout_width="@dimen/x225"
+            android:text="@string/info_occupation" />
+
+        <TextView
+            android:id="@+id/info_edit_occupation_text"
+            style="@style/normal_text_style"
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            tools:text="@string/info_occupation" />
+
+        <ImageView style="@style/right_arrow_x35_style" />
+    </LinearLayout>
+
+    <View style="@style/sep_view_item" />
+
+    <LinearLayout style="@style/white_bkg_selector_layout_style">
+
+        <TextView
+
+            style="@style/normal_text_style"
+            android:layout_width="@dimen/x225"
+            android:text="@string/info_company" />
+
+        <com.life.mm.framework.ui.widget.CcbEditText
+            android:id="@+id/info_edit_company_text"
+            style="@style/normal_text_style"
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            tools:text="@string/info_company" />
+    </LinearLayout>
+
+    <View style="@style/sep_view_item" />
+
+    <LinearLayout style="@style/white_bkg_selector_layout_style">
+
+        <TextView
+            style="@style/normal_text_style"
+            android:layout_width="@dimen/x225"
+            android:text="@string/info_school" />
+
+        <com.life.mm.framework.ui.widget.CcbEditText
+            android:id="@+id/info_edit_school_text"
+            style="@style/normal_text_style"
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            tools:text="@string/info_school" />
+    </LinearLayout>
+
+    <View style="@style/sep_view_item" />
+
+    <LinearLayout
+        android:id="@+id/info_edit_current_address_layout"
+        style="@style/white_bkg_selector_layout_style">
+
+        <TextView
+            style="@style/normal_text_style"
+            android:layout_width="@dimen/x225"
+            android:text="@string/info_current_address" />
+
+        <TextView
+            android:id="@+id/info_edit_current_address_text"
+            style="@style/normal_text_style"
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            tools:text="@string/info_current_address" />
+
+        <ImageView style="@style/right_arrow_x35_style" />
+    </LinearLayout>
+
+    <View style="@style/sep_view_item" />
+
+    <LinearLayout
+        android:id="@+id/info_edit_hometown_address_layout"
+        style="@style/white_bkg_selector_layout_style">
+
+        <TextView
+            style="@style/normal_text_style"
+            android:layout_width="@dimen/x225"
+            android:text="@string/info_hometown_address" />
+
+        <TextView
+            android:id="@+id/info_edit_hometown_address_text"
+            style="@style/normal_text_style"
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            tools:text="@string/info_hometown_address" />
+
+        <ImageView style="@style/right_arrow_x35_style" />
+    </LinearLayout>
+
+    <View style="@style/sep_view_item" />
+
+    <LinearLayout style="@style/white_bkg_selector_layout_style">
+
+        <TextView
+            style="@style/normal_text_style"
+            android:layout_width="@dimen/x225"
+            android:text="@string/info_email" />
+
+        <com.life.mm.framework.ui.widget.CcbEditText
+            android:id="@+id/info_edit_email_text"
+            style="@style/normal_text_style"
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            tools:text="@string/info_email" />
+    </LinearLayout>
+
+    <View
+        style="@style/sep_view_item"
+        android:layout_marginTop="@dimen/margin_item_normal_height" />
+
+    <LinearLayout
+        android:id="@+id/info_edit_self_description_layout"
+        style="@style/white_bkg_selector_layout_style">
+
+        <TextView
+            style="@style/normal_text_style"
+            android:layout_width="@dimen/x225"
+            android:text="@string/info_self_description" />
+
+        <TextView
+            android:id="@+id/info_edit_description"
+            style="@style/normal_text_style"
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            android:hint="@string/info_self_des_hints" />
+
+        <ImageView style="@style/right_arrow_x35_style" />
+    </LinearLayout>
+
+    <View style="@style/sep_view_item" />
+</LinearLayout>

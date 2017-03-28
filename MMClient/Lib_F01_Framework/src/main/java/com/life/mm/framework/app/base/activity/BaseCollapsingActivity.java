@@ -95,8 +95,10 @@ public abstract class BaseCollapsingActivity extends BaseActivity {
     }
 
     protected void loadHeadImg(String url) {
-        GlideUtils.loadDefault(url, framework_header_img, false,
-                DecodeFormat.DEFAULT, new GlideCircleTransform(mContext), DiskCacheStrategy.SOURCE);
+        if (!isFinishing()) {
+            GlideUtils.loadDefault(url, framework_header_img, false,
+                    DecodeFormat.DEFAULT, new GlideCircleTransform(mContext), DiskCacheStrategy.SOURCE);
+        }
     }
     @Override
     protected int getLayoutId() {

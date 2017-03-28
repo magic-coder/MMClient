@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/base_layout_style"
+    android:orientation="vertical"
+    tools:context=".app.register.EmailRegisterActivity">
+
+    <LinearLayout
+        style="@style/base_layout_style"
+        android:background="@color/white">
+
+        <TextView
+            style="@style/white_bkg_normal_text_style"
+            android:text="@string/register_email_account" />
+
+        <EditText
+            android:id="@+id/email_register_account"
+            style="@style/login_edit_style"
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            android:hint="@string/register_email_account_hint"
+            android:inputType="textEmailAddress" />
+
+        <Button
+            android:id="@+id/email_register_verify_btn"
+            style="@style/ysh_next_button_three"
+            android:layout_marginBottom="0dip"
+            android:layout_marginRight="@dimen/x43"
+            android:layout_marginTop="0dip"
+            android:text="@string/register_email_account_verify"
+            android:visibility="gone"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/email_register_next"
+            style="@style/common_next_button"
+            android:text="@string/common_next_step" />
+    </RelativeLayout>
+</LinearLayout>

@@ -5,12 +5,15 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 
 import com.avos.avoscloud.AVOSCloud;
+import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVUser;
 import com.life.mm.common.config.GlobalConfig;
 import com.life.mm.common.log.MMLogManager;
 import com.life.mm.common.preference.SharedPreferenceManager;
 import com.life.mm.framework.map.LocationManager;
 import com.life.mm.framework.okhttp.OKHttpManager;
+import com.life.mm.framework.user.ContactInfo;
+import com.life.mm.framework.user.CustomUser;
 
 import okhttp3.OkHttpClient;
 
@@ -31,7 +34,8 @@ public class MMApplication extends Application {
     private LocationManager locationManager = null;
     private AppManager appManager = null;
     private OkHttpClient okHttpClient = null;
-    private AVUser avUser = null;
+    private CustomUser customUser = null;
+    private boolean userShouldRefresh = false;
 
     public LocationManager getLocationManager() {
         return locationManager;
@@ -49,15 +53,23 @@ public class MMApplication extends Application {
         return appManager;
     }
 
-    public AVUser getAvUser() {
-        if (null == avUser) {
-            avUser = AVUser.getCurrentUser();
+    public CustomUser getCustomUser() {
+        if (null == customUser || userShouldRefresh) {
+            customUser = AVUser.getCurrentUser(CustomUser.class);
         }
-        return avUser;
+        return customUser;
+    }
+
+    public void setCustomUser(CustomUser customUser) {
+        this.customUser = customUser;
+    }
+
+    public void setUserShouldRefresh(boolean userShouldRefresh) {
+        this.userShouldRefresh = userShouldRefresh;
     }
 
     public boolean isLogin() {
-        return null != getAvUser();
+        return null != getCustomUser();
     }
 
     /** Multidex
@@ -91,6 +103,8 @@ public class MMApplication extends Application {
         registerActivityLifecycleCallbacks(appManager);//初始化app activity管理栈
         okHttpClient = OKHttpManager.getInstance().getOkHttpClient();
 
+        AVUser.alwaysUseSubUserClass(CustomUser.class);
+        AVObject.registerSubclass(ContactInfo.class);//支持子类化操作
         // 初始化参数依次为 this, AppId, AppKey
         AVOSCloud.initialize(this, GlobalConfig.leanCloudAppId, GlobalConfig.leanCloudAppKey);
         AVOSCloud.setDebugLogEnabled(GlobalConfig.isDebug);

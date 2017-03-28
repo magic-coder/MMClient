@@ -52,7 +52,7 @@ public class SettingsActivity extends BaseActivity {
     }
 
     private void initWidget() {
-        if (null != MMApplication.getInstance().getAvUser()) {
+        if (null != MMApplication.getInstance().getCustomUser()) {
             settings_quite_app.setVisibility(View.VISIBLE);
         } else {
             settings_quite_app.setVisibility(View.GONE);

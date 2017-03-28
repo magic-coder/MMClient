@@ -82,4 +82,22 @@ class LoadingDialog {
         dlg.setCanceledOnTouchOutside(false);
         dlg.show();
     }
+
+    public void showSuccessDlgOneBtn(String title, String content, final DlgConfirmListener confirmListener) {
+        SweetAlertDialog dlg = new SweetAlertDialog(MMApplication.getInstance().getAppManager().currentActivity(), SweetAlertDialog.SUCCESS_TYPE);
+        dlg.setTitleText(title);
+        dlg.setContentText(content);
+        dlg.setCancelable(false);
+        dlg.setCanceledOnTouchOutside(false);
+        dlg.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                dismiss();
+                if (null != confirmListener) {
+                    confirmListener.onConfirm();
+                }
+            }
+        });
+        dlg.show();
+    }
 }

@@ -4,11 +4,20 @@ import android.app.Activity;
 import android.content.Intent;
 import android.text.TextUtils;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVFile;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.ProgressCallback;
+import com.avos.avoscloud.SaveCallback;
 import com.life.mm.R;
 import com.life.mm.common.config.GlobalConfig;
+import com.life.mm.common.log.MMLogManager;
+import com.life.mm.framework.app.ActivityHelper;
 import com.life.mm.framework.app.base.activity.BaseCollapsingActivity;
 import com.life.mm.framework.bean.SelectOption;
 import com.life.mm.framework.ui.utils.SlideChooserWindowUtil;
+import com.life.mm.framework.user.CustomUser;
+import com.life.mm.framework.user.UserManager;
 import com.life.mm.framework.utils.MMUtils;
 import com.life.mm.uicomponent.photopicker.GalleryActivity;
 import com.life.mm.uicomponent.photopicker.GalleryConfig;
@@ -54,6 +63,14 @@ public class MineInfoActivity extends BaseCollapsingActivity {
     @Override
     protected void initView() {
         setToolbarTitle(R.string.mine_info_title);
+        setHeadImage();
+    }
+
+    private void setHeadImage() {
+        CustomUser customUser = AVUser.getCurrentUser(CustomUser.class);
+        if (!TextUtils.isEmpty(customUser.getHeadUrl())) {
+            loadHeadImg(customUser.getHeadUrl());
+        }
     }
 
     @Override
@@ -89,6 +106,11 @@ public class MineInfoActivity extends BaseCollapsingActivity {
         }
     }
 
+    @Override
+    protected void onClickEdit() {
+        ActivityHelper.goActivity(mContext, MineInfoStartActivity.class, null);
+    }
+
     private void selectImageFromGallery() {
         GalleryConfig config = new GalleryConfig.Build()
                 .singlePhoto(true)
@@ -109,7 +131,36 @@ public class MineInfoActivity extends BaseCollapsingActivity {
                         headImgPath = listPaths.get(0);
                     }
                     if (!TextUtils.isEmpty(headImgPath)) {
-                        loadHeadImg(headImgPath);
+                        try {
+                            String fileName = headImgPath.substring(headImgPath.lastIndexOf("/") + 1, headImgPath.length());
+                            final AVFile avFile = AVFile.withAbsoluteLocalPath(fileName, headImgPath);
+                            if (null != avFile) {
+                                avFile.saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(AVException e) {
+                                        loadHeadImg(headImgPath);
+
+                                        CustomUser user = AVUser.getCurrentUser(CustomUser.class);
+                                        user.setHeadUrl(avFile.getUrl());
+                                        user.saveInBackground(new SaveCallback() {
+                                            @Override
+                                            public void done(AVException e) {
+                                                MMLogManager.logD(TAG + ", save " + (null == e ? "Success" : "Failure, e = " + e.toString()));
+                                                onFinish();
+                                            }
+                                        });
+                                        UserManager.getInstance().saveDevUser(user);
+                                    }
+                                }, new ProgressCallback() {
+                                    @Override
+                                    public void done(Integer integer) {
+                                        onBegin();
+                                    }
+                                });
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
                 break;

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout style="@style/info_detail_style">
+
+        <TextView
+            style="@style/info_text_style_light_gray"
+            android:layout_width="@dimen/x195"
+            android:text="@string/info_nick_name" />
+
+        <TextView
+            android:id="@+id/info_nickname_text"
+            style="@style/normal_text_style"
+            android:layout_weight="1"
+            tools:text="@string/info_nick_name" />
+    </LinearLayout>
+
+    <View style="@style/sep_view_item" />
+
+    <LinearLayout style="@style/info_detail_style">
+
+        <TextView
+            style="@style/info_text_style_light_gray"
+            android:layout_width="@dimen/x195"
+            android:text="@string/info_gender" />
+
+        <TextView
+            android:id="@+id/info_gender_text"
+            style="@style/normal_text_style"
+            android:layout_weight="1"
+            tools:text="@string/info_gender" />
+    </LinearLayout>
+
+    <View style="@style/sep_view_item" />
+
+    <LinearLayout style="@style/info_detail_style">
+
+        <TextView
+            style="@style/info_text_style_light_gray"
+            android:layout_width="@dimen/x195"
+            android:text="@string/info_age" />
+
+        <TextView
+            android:id="@+id/info_age_text"
+            style="@style/normal_text_style"
+            android:layout_weight="1"
+            tools:text="@string/info_age" />
+    </LinearLayout>
+
+    <View style="@style/sep_view_item" />
+
+    <LinearLayout style="@style/info_detail_style">
+
+        <TextView
+            style="@style/info_text_style_light_gray"
+            android:layout_width="@dimen/x195"
+            android:text="@string/info_birthday" />
+
+        <TextView
+            android:id="@+id/info_birthday_text"
+            style="@style/normal_text_style"
+            android:layout_weight="1"
+            tools:text="@string/info_birthday" />
+    </LinearLayout>
+
+    <View style="@style/sep_view_item" />
+
+    <LinearLayout style="@style/info_detail_style">
+
+        <TextView
+            style="@style/info_text_style_light_gray"
+            android:layout_width="@dimen/x195"
+            android:text="@string/info_constellation" />
+
+        <TextView
+            android:id="@+id/info_constellation_text"
+            style="@style/normal_text_style"
+            android:layout_weight="1"
+            tools:text="@string/info_constellation" />
+    </LinearLayout>
+
+    <View style="@style/sep_view_item" />
+
+    <View
+        style="@style/sep_view_item"
+        android:layout_marginTop="@dimen/margin_item_normal_height" />
+
+    <LinearLayout style="@style/info_detail_style">
+
+        <TextView
+            style="@style/info_text_style_light_gray"
+            android:layout_width="@dimen/x195"
+            android:text="@string/info_occupation" />
+
+        <TextView
+            android:id="@+id/info_occupation_text"
+            style="@style/normal_text_style"
+            android:layout_weight="1"
+            tools:text="@string/info_occupation" />
+    </LinearLayout>
+
+    <View style="@style/sep_view_item" />
+
+    <LinearLayout style="@style/info_detail_style">
+
+        <TextView
+
+            style="@style/info_text_style_light_gray"
+            android:layout_width="@dimen/x195"
+            android:text="@string/info_company" />
+
+        <TextView
+            android:id="@+id/info_company_text"
+            style="@style/normal_text_style"
+            android:layout_weight="1"
+            tools:text="@string/info_company" />
+    </LinearLayout>
+
+    <View style="@style/sep_view_item" />
+
+    <LinearLayout style="@style/info_detail_style">
+
+        <TextView
+            style="@style/info_text_style_light_gray"
+            android:layout_width="@dimen/x195"
+            android:text="@string/info_school" />
+
+        <TextView
+            android:id="@+id/info_school_text"
+            style="@style/normal_text_style"
+            android:layout_weight="1"
+            tools:text="@string/info_school" />
+    </LinearLayout>
+
+    <View style="@style/sep_view_item" />
+
+    <LinearLayout style="@style/info_detail_style">
+
+        <TextView
+            style="@style/info_text_style_light_gray"
+            android:layout_width="@dimen/x195"
+            android:text="@string/info_current_address" />
+
+        <TextView
+            android:id="@+id/info_current_address_text"
+            style="@style/normal_text_style"
+            android:layout_weight="1"
+            tools:text="@string/info_current_address" />
+    </LinearLayout>
+
+    <View style="@style/sep_view_item" />
+
+    <LinearLayout style="@style/info_detail_style">
+
+        <TextView
+            style="@style/info_text_style_light_gray"
+            android:layout_width="@dimen/x195"
+            android:text="@string/info_hometown_address" />
+
+        <TextView
+            android:id="@+id/info_hometown_address_text"
+            style="@style/normal_text_style"
+            android:layout_weight="1"
+            tools:text="@string/info_hometown_address" />
+    </LinearLayout>
+
+    <View style="@style/sep_view_item" />
+
+    <LinearLayout style="@style/info_detail_style">
+
+        <TextView
+            style="@style/info_text_style_light_gray"
+            android:layout_width="@dimen/x195"
+            android:text="@string/info_email" />
+
+        <TextView
+            android:id="@+id/info_email_text"
+            style="@style/normal_text_style"
+            android:layout_weight="1"
+            tools:text="@string/info_email" />
+    </LinearLayout>
+
+</LinearLayout>

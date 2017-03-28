@@ -38,8 +38,10 @@
     <style name="BaseAppTheme.AppTheme">
         <!-- <item name="android:windowAnimationStyle">@style/noAnimation</item>-->
     </style>
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <!-- ToolBar主题，menu的item字体为白色 -->
     <style name="ToolBarStyle" parent="@style/Widget.AppCompat.ActionBar">
@@ -65,10 +67,18 @@
     <style name="base_view_style">
         <item name="android:background">?android:attr/selectableItemBackground</item><!-- 水波纹效果 -->
     </style>
+
     <style name="base_layout_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+
+    <style name="normal_layout_style" parent="@style/base_layout_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/x10</item>
+    </style>
+
     <style name="normal_text_style" parent="@style/base_view_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -77,7 +87,17 @@
         <item name="android:layout_gravity">center</item>
         <item name="android:layout_centerInParent">true</item>
         <item name="android:padding">@dimen/text_padding_normal_size</item>
+        <item name="android:textColorHint">@color/text_gray</item>
     </style>
+
+    <style name="normal_text_style_smaller" parent="@style/normal_text_style">
+        <item name="android:textSize">@dimen/text_smaller_size</item>
+    </style>
+
+    <style name="white_bkg_normal_text_style" parent="@style/normal_text_style">
+        <item name="android:background">@color/white</item>
+    </style>
+
     <style name="sep_view_item" parent="@style/base_view_style">
         <item name="android:background">@color/list_divider_color</item>
         <item name="android:layout_width">match_parent</item>
@@ -88,20 +108,59 @@
 
     <style name="left_menu_text_style" parent="@style/normal_text_style">
         <item name="android:layout_gravity">left</item>
-        <item name="android:layout_marginLeft">@dimen/margin_item_normal_height</item>
+        <item name="android:paddingLeft">@dimen/margin_item_normal_height</item>
         <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@drawable/white_bkg_selector</item>
     </style>
 
     <style name="card_view_style" parent="@style/base_layout_style">
         <item name="android:layout_marginLeft">@dimen/margin_item_normal_height</item>
         <item name="android:layout_marginRight">@dimen/margin_item_normal_height</item>
     </style>
+
     <style name="main_menu_animstyle">
         <item name="android:windowEnterAnimation">@anim/dialog_in_up</item>
         <item name="android:windowExitAnimation">@anim/dialog_out_down</item>
     </style>
+
     <style name="transparentFrameWindowStyle" parent="@android:style/Theme.Dialog">
         <item name="android:windowBackground">@drawable/choose_bg</item>
         <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <!-- -->
+    <style name="login_edit_style" parent="@style/normal_text_style">
+        <item name="android:background">@color/white</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:drawablePadding">@dimen/x25</item>
+    </style>
+
+
+    <style name="pwd_edit_style" parent="@style/normal_text_style">
+        <item name="android:background">@color/white</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:drawablePadding">@dimen/x25</item>
+        <item name="android:password">true</item>
+        <item name="android:inputType">textPassword</item>
+    </style>
+    <style name="info_detail_style" parent="@style/base_layout_style">
+        <item name="android:paddingRight">@dimen/layout_padding_big_size</item>
+        <item name="android:paddingLeft">@dimen/layout_padding_big_size</item>
+        <item name="android:background">@color/white</item>
+    </style>
+    <style name="white_bkg_selector_layout_style" parent="info_detail_style">
+        <item name="android:background">@drawable/white_bkg_selector</item>
+    </style>
+    <style name="info_text_style_light_gray" parent="@style/normal_text_style">
+        <item name="android:textColor">@color/gray</item>
+    </style>
+    <style name="right_arrow_x35_style">
+        <item name="android:layout_width">@dimen/x35</item>
+        <item name="android:layout_height">@dimen/x35</item>
+        <item name="android:layout_gravity">right|center_vertical</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:src">@drawable/right_arrow</item>
+        <item name="android:contentDescription">@null</item>
     </style>
 </resources>

@@ -50,10 +50,15 @@ public class RegisterActivityManager extends RegisterResultListener{
         }
     }
 
+    private void clearListener() {
+        listeners.clear();
+    }
+
     @Override
     protected void onSuccess() {
         for (RegisterResultListener listener : listeners) {
             listener.onSuccess();
         }
+        clearListener();
     }
 }

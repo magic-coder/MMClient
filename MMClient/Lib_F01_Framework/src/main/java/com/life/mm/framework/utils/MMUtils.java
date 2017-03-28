@@ -19,6 +19,8 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.PermissionChecker;
+import android.text.Html;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.view.Window;
 import android.view.WindowManager;
@@ -518,5 +520,19 @@ public class MMUtils {
 
 	public static boolean isAvaliableList(List<?> list) {
 		return null != list && list.size() > 0;
+	}
+
+	public static boolean isValidPhoneNumber(String phoneStr) {
+		return !TextUtils.isEmpty(phoneStr) && phoneStr.length() == 11;
+	}
+
+	public static Spanned getFormatSpan(Context context, int resId, Object ...args) {
+		String originStr = context.getString(resId);
+		String formatStr = String.format(originStr, args);
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+			return Html.fromHtml(formatStr, Html.FROM_HTML_MODE_LEGACY);
+		} else {
+			return Html.fromHtml(formatStr);
+		}
 	}
 }

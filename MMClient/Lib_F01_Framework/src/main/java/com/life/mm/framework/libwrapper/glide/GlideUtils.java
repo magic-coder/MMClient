@@ -81,6 +81,22 @@ public class GlideUtils {
      * @param format            图片质量，只有设置图片为bitmap类型时才有效
      * @param diskcacheStrategy 硬盘缓存策略
      */
+    public static void loadHeadImg(Object loadObj, ImageView imageView, Boolean asGif,
+                                   DecodeFormat format, Transformation transformation, DiskCacheStrategy diskcacheStrategy) {
+        load(imageView.getContext(), loadObj, imageView, 0, 0, R.drawable.ic_loading,
+                R.drawable.ic_default_avatar, R.anim.image_load, asGif, format, transformation, diskcacheStrategy);
+    }
+
+
+    /**
+     * 加载图片，默认设置了加载图片，出错图片，加载动画，不重设宽高，不转换
+     *
+     * @param loadObj           加载对象
+     * @param imageView         图片
+     * @param asGif             是否指定图片为Gif类型，null不指定，true指定为Gif，false指定为Bitmap
+     * @param format            图片质量，只有设置图片为bitmap类型时才有效
+     * @param diskcacheStrategy 硬盘缓存策略
+     */
     public static void loadDefault(Object loadObj, ImageView imageView, Boolean asGif,
                                    DecodeFormat format, Transformation transformation, DiskCacheStrategy diskcacheStrategy) {
         load(imageView.getContext(), loadObj, imageView, 0, 0, R.drawable.ic_loading,

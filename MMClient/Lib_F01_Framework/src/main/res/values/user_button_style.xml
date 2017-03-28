@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="ysh_next_button" parent="button_major_tint_style_40radius">
+    <style name="common_next_button" parent="button_major_tint_style_40radius">
         <item name="android:layout_width">@dimen/x749</item>
         <item name="android:layout_height">@dimen/y115</item>
         <item name="android:layout_centerHorizontal">true</item>
@@ -71,5 +71,6 @@
         <item name="android:gravity">center</item>
         <item name="android:textSize">@dimen/x37</item>
         <item name="android:minHeight">@dimen/y86</item>
+        <item name="android:layout_gravity">center</item>
     </style>
 </resources>

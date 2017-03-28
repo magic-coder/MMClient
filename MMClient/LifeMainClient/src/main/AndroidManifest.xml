@@ -33,6 +33,12 @@
         </activity>
         <activity android:name=".infocenter.MineInfoActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".infocenter.MineInfoStartActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".infocenter.MineInfoDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".infocenter.MineInfoEditActivity"
+            android:screenOrientation="portrait"/>
         <!-- 高德地图相关配置 -->
         <meta-data
             android:name="com.amap.api.v2.apikey"

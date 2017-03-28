@@ -10,7 +10,7 @@
         <item name="android:layout_width">match_parent</item>
     </style>
 
-    <style name="settings_line_layout_style" parent="@style/base_layout_style">
+    <style name="settings_line_layout_style" parent="@style/white_bkg_selector_layout_style">
         <item name="android:paddingLeft">@dimen/text_padding_smaller_size</item>
         <item name="android:paddingRight">@dimen/text_padding_smaller_size</item>
     </style>

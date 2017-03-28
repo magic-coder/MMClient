@@ -273,17 +273,17 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         slidingPaneLayout.setPanelSlideListener(new SlidingPaneLayout.PanelSlideListener() {
             @Override
             public void onPanelSlide(View panel, float slideOffset) {
-
+                onLeftMenuSlide(panel, slideOffset);
             }
 
             @Override
             public void onPanelOpened(View panel) {
-
+                onLeftMenuOpened(panel);
             }
 
             @Override
             public void onPanelClosed(View panel) {
-
+                onLeftMenuClosed(panel);
             }
         });
         slidingPaneLayout.setCoveredFadeColor(Color.TRANSPARENT);
@@ -323,5 +323,22 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(strId);
         }
+    }
+
+
+    protected void onLeftMenuSlide(View panel, float slideOffset) {
+
+    }
+
+    protected void onLeftMenuOpened(View panel) {
+
+    }
+
+    protected void onLeftMenuClosed(View panel) {
+
+    }
+
+    protected String getResourceValue(int resId) {
+        return mResources.getString(resId);
     }
 }

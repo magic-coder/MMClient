@@ -9,15 +9,22 @@ import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.bumptech.glide.load.DecodeFormat;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.life.mm.common.log.MMLogManager;
+import com.life.mm.framework.app.base.BaseCallBack;
 import com.life.mm.framework.app.base.presenter.BasePresenter;
+import com.life.mm.framework.libwrapper.glide.GlideUtils;
+import com.life.mm.framework.ui.loading.LoadingDialogUtil;
+import com.life.mm.framework.utils.GlideCircleTransform;
 
 /**
  * Created by Thinkpad on 2017/2/27.
  */
 
-public abstract class BaseFragment<P extends BasePresenter> extends LazyLoadFragment {
+public abstract class BaseFragment<P extends BasePresenter> extends LazyLoadFragment implements BaseCallBack{
 
     protected String TAG = getClass().getSimpleName();
     protected P mPresenter = null;
@@ -119,5 +126,35 @@ public abstract class BaseFragment<P extends BasePresenter> extends LazyLoadFrag
     public void onDetach() {
         super.onDetach();
         MMLogManager.logD(TAG + ", onDetach");
+    }
+
+    @Override
+    public void onBegin() {
+        LoadingDialogUtil.showLoading();
+    }
+
+    @Override
+    public void doInBackground() {
+
+    }
+
+    @Override
+    public void onFinish() {
+        LoadingDialogUtil.dismiss();
+    }
+
+    @Override
+    public void onSuccess() {
+
+    }
+
+    @Override
+    public void onError(int status, String message) {
+        LoadingDialogUtil.showErrorDlg(status, message);
+    }
+
+    protected void load2Img(ImageView imageView, String url) {
+        GlideUtils.loadDefault(url, imageView, false,
+                DecodeFormat.DEFAULT, new GlideCircleTransform(mContext), DiskCacheStrategy.SOURCE);
     }
 }

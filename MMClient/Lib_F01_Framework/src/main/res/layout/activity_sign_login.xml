@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".app.login.LoginActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/x86">
+
+            <EditText
+                android:id="@+id/et_username"
+                style="@style/login_edit_style"
+                android:layout_marginTop="50dip"
+                android:drawableLeft="@drawable/sign_username"
+                android:hint="@string/sign_username_hint" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/list_divider_color" />
+
+            <EditText
+                android:id="@+id/et_password"
+                style="@style/login_edit_style"
+                android:drawableLeft="@drawable/sign_in_password"
+                android:hint="@string/sign_password_hint"
+                android:inputType="textPassword" />
+
+            <TextView
+                android:id="@+id/tv_forget_password"
+                style="@style/normal_text_style"
+                android:layout_gravity="right"
+                android:padding="12dp"
+                android:text="@string/sign_forget_pwd_str"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/btn_sign_in"
+                style="@style/common_next_button"
+                android:text="@string/login" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1px"
+                    android:layout_weight="1"
+                    android:background="@color/list_divider_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:text="@string/sign_auth_login"
+                    android:textColor="@color/text_gray"
+                    android:textSize="12sp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1px"
+                    android:layout_weight="1"
+                    android:background="@color/list_divider_color" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/iv_qq_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_share_qq" />
+
+                <ImageView
+                    android:id="@+id/iv_wechat_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/x86"
+                    android:layout_marginRight="@dimen/x86"
+                    android:src="@drawable/icon_share_wechat" />
+
+                <ImageView
+                    android:id="@+id/iv_weibo_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_share_sina_weibo" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

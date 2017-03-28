@@ -16,6 +16,7 @@
     <dimen name="text_margin">16dp</dimen>
 
     <!-- 常用字体size -->
+    <dimen name="text_smallest_size">6sp</dimen>
     <dimen name="text_smaller_size">10sp</dimen>
     <dimen name="text_small_size">12sp</dimen>
     <dimen name="text_normal_size">14sp</dimen>
@@ -31,6 +32,11 @@
     <dimen name="text_padding_small_size">6dip</dimen>
     <dimen name="text_padding_normal_size">8dip</dimen>
     <dimen name="text_padding_big_size">10dip</dimen>
+
+    <dimen name="layout_padding_smaller_size">4dip</dimen>
+    <dimen name="layout_padding_small_size">6dip</dimen>
+    <dimen name="layout_padding_normal_size">8dip</dimen>
+    <dimen name="layout_padding_big_size">10dip</dimen>
 
     <!-- 常用分隔线高度 -->
     <dimen name="fill_item_small_height">0.6dip</dimen>

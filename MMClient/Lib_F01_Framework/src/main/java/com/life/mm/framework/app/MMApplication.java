@@ -60,6 +60,7 @@ public class MMApplication extends Application {
         return customUser;
     }
 
+
     public void setCustomUser(CustomUser customUser) {
         this.customUser = customUser;
     }

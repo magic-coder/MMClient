@@ -39,7 +39,6 @@ import com.life.mm.framework.libwrapper.glide.GlideCircleTransform;
 import com.life.mm.framework.libwrapper.glide.GlideUtils;
 import com.life.mm.framework.skin.CcbSkinColorTool;
 import com.life.mm.framework.user.CustomUser;
-import com.life.mm.framework.utils.MMUtils;
 import com.life.mm.infocenter.MineInfoActivity;
 import com.mm.life.settings.SettingsActivity;
 
@@ -201,7 +200,11 @@ public class MMMainActivity extends BaseActivity {
         if (null != customUser) {
             String nickName = customUser.getNickName();
             if (!TextUtils.isEmpty(nickName)) {
-                main_menu_nick.setText(MMUtils.getFormatSpan(mContext, R.string.navigation_menu_info_nick, customUser.getNickName()));
+                main_menu_nick.setText(customUser.getNickName());
+            }
+            String headUrl = customUser.getHeadUrl();
+            if (!TextUtils.isEmpty(headUrl)) {
+                GlideUtils.loadHeadImg(headUrl, main_menu_cover, false, DecodeFormat.DEFAULT, new GlideCircleTransform(mContext), DiskCacheStrategy.SOURCE);
             }
         }
     }
@@ -471,9 +474,7 @@ public class MMMainActivity extends BaseActivity {
     @Override
     protected void onLeftMenuOpened(View panel) {
         super.onLeftMenuOpened(panel);
-        CustomUser customUser = MMApplication.getInstance().getCustomUser();
-        if (null != customUser && !TextUtils.isEmpty(customUser.getHeadUrl())) {
-            GlideUtils.loadHeadImg(customUser.getHeadUrl(), main_menu_cover, false, DecodeFormat.DEFAULT, new GlideCircleTransform(mContext), DiskCacheStrategy.SOURCE);
-        }
+
+        setMenuView();
     }
 }

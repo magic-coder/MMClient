@@ -5,20 +5,29 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Point;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.support.v7.widget.Toolbar;
+import android.text.SpannableString;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.BounceInterpolator;
+import android.view.animation.Interpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdate;
 import com.amap.api.maps.CameraUpdateFactory;
+import com.amap.api.maps.Projection;
 import com.amap.api.maps.TextureSupportMapFragment;
 import com.amap.api.maps.model.BitmapDescriptor;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
@@ -132,6 +141,9 @@ public class MainHomeFragment extends BaseFragment<MainPresenter> {
     private boolean uploadInfo = false;
     private GeocodeSearch geocodeSearch = null;
     private ExecutorService mExecutorService = null;
+    private int count = 1;
+    private Bitmap lastMarkerBitMap = null;
+    private String clickUserId = null;
 
     private MMMainActivity.OnMenuInflateListener onMenuInflateListener = new MMMainActivity.OnMenuInflateListener() {
         @Override
@@ -239,7 +251,7 @@ public class MainHomeFragment extends BaseFragment<MainPresenter> {
             if (!mFirstFix) {
                 mFirstFix = true;
                 addCircle(location, Double.parseDouble(result.getAccuracy()));//添加定位精度圆
-                addMarker(location, result.getAddress(), R.drawable.navi_map_gps_locked);//添加定位图标
+                mLocMarker = addMarker(location, result.getAddress(), R.drawable.navi_map_gps_locked);//添加定位图标
                 mSensorHelper.setCurrentMarker(mLocMarker);//定位图标旋转
                 changeCamera(true, 500, CameraUpdateFactory.newLatLngZoom(location, currentMapLevel), null);
             } else {
@@ -247,12 +259,14 @@ public class MainHomeFragment extends BaseFragment<MainPresenter> {
                 mCircle.setRadius(Double.parseDouble(result.getAccuracy()));
                 mLocMarker.setPosition(location);
             }
+            markerMap.put(mLocMarker, UserManager.getInstance().getCurrentUserId());
 
             //位置发生改变重新搜索附近的人
             if (mCenterPoint.equals(lastCenterPoint)) {
-                searchByBound();
+                //searchByBound();
                 upload2YunTu(result);
             }
+            stopLocation();
         }
     };
 
@@ -488,33 +502,72 @@ public class MainHomeFragment extends BaseFragment<MainPresenter> {
         aMap.setOnMarkerClickListener(new AMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
+                MMLogManager.logD(TAG + ", onMarkerClick, marker = " + marker);
                 setInfoWindow(marker);
+                clickUserId = markerMap.get(marker);
                 return true;
             }
         });
         setInfoWindowAdatper();
     }
+    /**
+     * 自定义infowinfow窗口
+     */
+    public void render(Marker marker, View view) {
+        ImageView imageView = (ImageView) view.findViewById(R.id.badge);
+        imageView.setImageResource(R.drawable.ic_default_avatar);
+        String title = marker.getTitle();
+        TextView titleUi = ((TextView) view.findViewById(R.id.title));
+        if (title != null) {
+            SpannableString titleText = new SpannableString(title);
+            titleText.setSpan(new ForegroundColorSpan(Color.RED), 0,
+                    titleText.length(), 0);
+            titleUi.setTextSize(15);
+            titleUi.setText(titleText);
 
+        } else {
+            titleUi.setText("");
+        }
+        String snippet = marker.getSnippet();
+        TextView snippetUi = ((TextView) view.findViewById(R.id.snippet));
+        if (snippet != null) {
+            SpannableString snippetText = new SpannableString(snippet);
+            snippetText.setSpan(new ForegroundColorSpan(Color.GREEN), 0,
+                    snippetText.length(), 0);
+            snippetUi.setTextSize(20);
+            snippetUi.setText(snippetText);
+        } else {
+            snippetUi.setText("");
+        }
+    }
 
     private void setInfoWindowAdatper() {
         aMap.setInfoWindowAdapter(new AMap.InfoWindowAdapter() {
             @Override
-            public View getInfoWindow(Marker marker) {
+            public View getInfoContents(Marker marker) {
                 return null;
             }
 
             @Override
-            public View getInfoContents(Marker marker) {
-                View infoContentsView = mLayoutInflater.inflate(R.layout.custom_info_window, (ViewGroup) getActivity().getWindow().getDecorView(), false);
+            public View getInfoWindow(final Marker marker) {
+                MMLogManager.logD(TAG + ", getInfoContents, marker = " + marker);
+                //View infoContentsView = ((Activity)mContext).getLayoutInflater().inflate(R.layout.custom_info_window, null);
+                String userId = markerMap.get(marker);
+                if (!TextUtils.equals(clickUserId, userId)) {
+                    return null;
+                }
+                View infoContentsView = mLayoutInflater.inflate(R.layout.custom_info_window, null, false);
+                int width = mResources.getDimensionPixelSize(R.dimen.x755);
+                int height = mResources.getDimensionPixelSize(R.dimen.x555);
+                ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(width, height);
+                //infoContentsView.setLayoutParams(lp);
                 final ImageView info_window_head_img = (ImageView) infoContentsView.findViewById(R.id.info_window_head_img);
                 final TextView info_window_nickname = (TextView) infoContentsView.findViewById(R.id.info_window_nickname);
                 final TextView info_window_self_description = (TextView) infoContentsView.findViewById(R.id.info_window_self_description);
-
-
                 //1 设置头像
                 CustomUser user = AVUser.getCurrentUser(CustomUser.class);
                 if (null != user) {//点击的Marker属于当前登陆的用户，不用异步查找
-                    if (user.getObjectId().equals(markerMap.get(marker))) {
+                    if (UserManager.getInstance().getCurrentUserId().equals(markerMap.get(marker))) {
                         String headUrl = user.getHeadUrl();
                         String nickName = user.getNickName();
                         String selfDescription = user.getSelfDescription();
@@ -541,6 +594,11 @@ public class MainHomeFragment extends BaseFragment<MainPresenter> {
                         info_window_nickname.setText(TextUtils.isEmpty(nickName) ? mResources.getString(R.string.nick_name_empty_boy_tips) : nickName);
                         info_window_self_description.setText(TextUtils.isEmpty(selfDescription) ? mResources.getString(R.string.simple_info_self_description_tips) : selfDescription);
                     }
+
+                    @Override
+                    public void onError(String code, String message) {
+                        marker.hideInfoWindow();
+                    }
                 });
 
 
@@ -549,6 +607,104 @@ public class MainHomeFragment extends BaseFragment<MainPresenter> {
         });
     }
 
+    /**
+     * marker点击时跳动一下
+     */
+    public void jumpPoint(final Marker marker, final LatLng latlng) {
+        final Handler handler = new Handler();
+        final long start = SystemClock.uptimeMillis();
+        Projection proj = aMap.getProjection();
+        Point startPoint = proj.toScreenLocation(latlng);
+        startPoint.offset(0, -100);
+        final LatLng startLatLng = proj.fromScreenLocation(startPoint);
+        final long duration = 1500;
+
+        final Interpolator interpolator = new BounceInterpolator();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                long elapsed = SystemClock.uptimeMillis() - start;
+                float t = interpolator.getInterpolation((float) elapsed
+                        / duration);
+                double lng = t * latlng.longitude + (1 - t)
+                        * startLatLng.longitude;
+                double lat = t * latlng.latitude + (1 - t)
+                        * startLatLng.latitude;
+                marker.setPosition(new LatLng(lat, lng));
+                if (t < 1.0) {
+                    handler.postDelayed(this, 16);
+                }
+            }
+        });
+    }
+    /**
+     * 从地上生长效果，实现思路
+     * 在较短的时间内，修改marker的图标大小，从而实现动画<br>
+     * 1.保存原始的图片；
+     * 2.在原始图片上缩放得到新的图片，并设置给marker；
+     * 3.回收上一张缩放后的图片资源；
+     * 4.重复2，3步骤到时间结束；
+     * 5.回收上一张缩放后的图片资源，设置marker的图标为最原始的图片；
+     *
+     * 其中时间变化由AccelerateInterpolator控制
+     * @param marker
+     */
+    private void growInto(final Marker marker) {
+        marker.setVisible(false);
+        final Handler handler = new Handler();
+        final long start = SystemClock.uptimeMillis();
+        final long duration = 250;// 动画总时长
+        final Bitmap bitMap = marker.getIcons().get(0).getBitmap();// BitmapFactory.decodeResource(getResources(),R.drawable.ic_launcher);
+        final int width = bitMap.getWidth();
+        final int height = bitMap.getHeight();
+
+        final Interpolator interpolator = new AccelerateInterpolator();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                long elapsed = SystemClock.uptimeMillis() - start;
+                float t = interpolator.getInterpolation((float) elapsed / duration);
+
+                if (t > 1) {
+                    t = 1;
+                }
+
+                // 计算缩放比例
+                int scaleWidth = (int) (t * width);
+                int scaleHeight = (int) (t * height);
+                if (scaleWidth > 0 && scaleHeight > 0) {
+
+                    // 使用最原始的图片进行大小计算
+                    marker.setIcon(BitmapDescriptorFactory.fromBitmap(Bitmap.createScaledBitmap(bitMap, scaleWidth, scaleHeight, true)));
+                    marker.setVisible(true);
+
+                    // 因为替换了新的图片，所以把旧的图片销毁掉，注意在设置新的图片之后再销毁
+                    if (lastMarkerBitMap != null && !lastMarkerBitMap.isRecycled()) {
+                        lastMarkerBitMap.recycle();
+                    }
+
+                    //第一次得到的缩放图片，在第二次回收，最后一次的缩放图片，在动画结束时回收
+                    ArrayList<BitmapDescriptor> list = marker.getIcons();
+                    if (list != null && list.size() > 0) {
+                        // 保存旧的图片
+                        lastMarkerBitMap = marker.getIcons().get(0).getBitmap();
+                    }
+
+                }
+
+                if (t < 1.0 && count < 10) {
+                    handler.postDelayed(this, 16);
+                } else {
+                    // 动画结束回收缩放图片，并还原最原始的图片
+                    if (lastMarkerBitMap != null && !lastMarkerBitMap.isRecycled()) {
+                        lastMarkerBitMap.recycle();
+                    }
+                    marker.setIcon(BitmapDescriptorFactory.fromBitmap(bitMap));
+                    marker.setVisible(true);
+                }
+            }
+        });
+    }
 
     private void setInfoWindow(Marker marker) {
         synchronized (this) {
@@ -556,6 +712,7 @@ public class MainHomeFragment extends BaseFragment<MainPresenter> {
                 if (marker.isInfoWindowShown()) {
                     marker.hideInfoWindow();
                 } else {
+                    //jumpPoint(marker, marker.getPosition());
                     marker.showInfoWindow();
                     changeCamera(true, 500, CameraUpdateFactory.newLatLngZoom(marker.getPosition(), currentMapLevel), null);
                 }
@@ -591,7 +748,7 @@ public class MainHomeFragment extends BaseFragment<MainPresenter> {
                 UploadInfo uploadInfo = new UploadInfo();
                 uploadInfo.setCoordType(NearbySearch.AMAP);//坐标类型
                 uploadInfo.setPoint(mCenterPoint);
-                uploadInfo.setUserID(MMApplication.getInstance().getCustomUser().getUsername());
+                uploadInfo.setUserID(UserManager.getInstance().getCurrentUserId());
                 return uploadInfo;
             }
         }, 5 * 60 * 1000);
@@ -604,12 +761,12 @@ public class MainHomeFragment extends BaseFragment<MainPresenter> {
         UploadInfo loadInfo = new UploadInfo();
         loadInfo.setCoordType(NearbySearch.AMAP);
         loadInfo.setPoint(mCenterPoint);
-        loadInfo.setUserID(MMApplication.getInstance().getCustomUser().getUsername());
+        loadInfo.setUserID(UserManager.getInstance().getCurrentUserId());
         NearbySearch.getInstance(mContext).uploadNearbyInfoAsyn(loadInfo);
     }
 
     private void clearMyNearbyLocationInfo() {
-        mNearbySearch.setUserID(MMApplication.getInstance().getCustomUser().getUsername());
+        mNearbySearch.setUserID(UserManager.getInstance().getCurrentUserId());
         NearbySearch.getInstance(mContext).clearUserInfoAsyn();
     }
     private void upload2YunTu(LocationResult result) {
@@ -840,12 +997,16 @@ public class MainHomeFragment extends BaseFragment<MainPresenter> {
     public void onDestroy() {
         super.onDestroy();
         ((MMMainActivity) mContext).removeMenuInflate(onMenuInflateListener);
-        locationManager.removeListener(locationResultListener);
-        locationManager.stopLocation();
-        locationManager.destroyLocation();
+        stopLocation();
         NearbySearch.destroy();
         if (null != mExecutorService && !mExecutorService.isShutdown()) {
             mExecutorService.shutdownNow();
         }
+    }
+
+    private void stopLocation() {
+        locationManager.removeListener(locationResultListener);
+        locationManager.stopLocation();
+        locationManager.destroyLocation();
     }
 }

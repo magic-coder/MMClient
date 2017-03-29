@@ -11,4 +11,5 @@ package com.life.mm.framework.user;
 
 public interface OnQueryUserCallback<T> {
     void onGetUser(T user);
+    void onError(String code, String message);
 }

@@ -1,5 +1,7 @@
 package com.life.mm.framework.ui.loading;
 
+import android.content.DialogInterface;
+
 import com.life.mm.common.config.GlobalConfig;
 import com.life.mm.framework.app.MMApplication;
 
@@ -18,6 +20,7 @@ class LoadingDialog {
 
     private static LoadingDialog instance = null;
     private SweetAlertDialog loadingDlg = null;
+    private SweetAlertDialog errorDialog = null;
 
 
 
@@ -70,17 +73,26 @@ class LoadingDialog {
         showLoading();
     }
 
-    public void showErrorDlg(int status, String content) {
-        SweetAlertDialog dlg = new SweetAlertDialog(MMApplication.getInstance().getAppManager().currentActivity(), SweetAlertDialog.ERROR_TYPE);
+    public synchronized void showErrorDlg(int status, String content) {
+        if (null != errorDialog && errorDialog.isShowing()) {
+            return;
+        }
+        errorDialog = new SweetAlertDialog(MMApplication.getInstance().getAppManager().currentActivity(), SweetAlertDialog.ERROR_TYPE);
         StringBuilder stringBuffer = new StringBuilder(content);
         if (GlobalConfig.isDebug) {
             stringBuffer.append("(status = " + status + ")");
         }
-        dlg.setTitleText("");
-        dlg.setContentText(stringBuffer.toString());
-        dlg.setCancelable(false);
-        dlg.setCanceledOnTouchOutside(false);
-        dlg.show();
+        errorDialog.setTitleText("");
+        errorDialog.setContentText(stringBuffer.toString());
+        errorDialog.setCancelable(false);
+        errorDialog.setCanceledOnTouchOutside(false);
+        errorDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                errorDialog = null;
+            }
+        });
+        errorDialog.show();
     }
 
     public void showSuccessDlgOneBtn(String title, String content, final DlgConfirmListener confirmListener) {

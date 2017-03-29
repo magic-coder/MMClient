@@ -1,5 +1,6 @@
 package com.life.mm.infocenter;
 
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,6 +11,7 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.SaveCallback;
 import com.life.mm.R;
 import com.life.mm.common.config.GlobalConfig;
+import com.life.mm.eventbus.SimpleNotifyEvent;
 import com.life.mm.framework.app.MMApplication;
 import com.life.mm.framework.app.base.activity.BaseActivity;
 import com.life.mm.framework.ui.loading.DlgConfirmListener;
@@ -17,6 +19,8 @@ import com.life.mm.framework.ui.loading.LoadingDialogUtil;
 import com.life.mm.framework.ui.widget.CcbEditText;
 import com.life.mm.framework.user.CustomUser;
 import com.life.mm.framework.user.UserManager;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -178,14 +182,26 @@ public class MineInfoEditActivity extends BaseActivity {
                         @Override
                         public void done(AVException e) {
                             onFinish();
-                            LoadingDialogUtil.showSuccessDlgOneBtn("", getResourceValue(R.string.common_success), new DlgConfirmListener() {
-                                @Override
-                                public void onConfirm() {
-                                    finish();
-                                }
-                            });
                             if (null == e) {
+                                //使用EventBus发送事件通知前一个页面刷新用户详细资料数据
+                                Bundle bundle = new Bundle();
+                                bundle.putParcelable(GlobalConfig.data, customUser);
+                                SimpleNotifyEvent event = new SimpleNotifyEvent.Builder()
+                                        .setSource(MineInfoEditActivity.class.getSimpleName())
+                                        .setMsg(GlobalConfig.sourceEditUserInfo)
+                                        .setData(bundle)
+                                        .build();
+                                EventBus.getDefault().postSticky(event);
+
+                                LoadingDialogUtil.showSuccessDlgOneBtn("", getResourceValue(R.string.common_success), new DlgConfirmListener() {
+                                    @Override
+                                    public void onConfirm() {
+                                        finish();
+                                    }
+                                });
                                 UserManager.getInstance().saveDevUser(customUser);
+                            } else {
+                                LoadingDialogUtil.showErrorDlg(e.getCode(), e.getMessage());
                             }
                         }
                     });

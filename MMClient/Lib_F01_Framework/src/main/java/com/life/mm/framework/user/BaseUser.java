@@ -2,39 +2,38 @@ package com.life.mm.framework.user;
 
 import android.text.TextUtils;
 
-import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.AVObject;
 
-import static com.life.mm.framework.user.CustomUser.Constants.ADDRESS_KEY;
-import static com.life.mm.framework.user.CustomUser.Constants.AGE_KEY;
-import static com.life.mm.framework.user.CustomUser.Constants.BIRTHDAY_KEY;
-import static com.life.mm.framework.user.CustomUser.Constants.COMPANY_KEY;
-import static com.life.mm.framework.user.CustomUser.Constants.CONSTELLATION_KEY;
-import static com.life.mm.framework.user.CustomUser.Constants.DIY_NAME_KEY;
-import static com.life.mm.framework.user.CustomUser.Constants.GENDER_KEY;
-import static com.life.mm.framework.user.CustomUser.Constants.HEAD_URL_KEY;
-import static com.life.mm.framework.user.CustomUser.Constants.HEIGHT_KEY;
-import static com.life.mm.framework.user.CustomUser.Constants.HOMETOWN_ADDRESS_KEY;
-import static com.life.mm.framework.user.CustomUser.Constants.NICK_NAME_KEY;
-import static com.life.mm.framework.user.CustomUser.Constants.OCCUPATION_KEY;
-import static com.life.mm.framework.user.CustomUser.Constants.PHOTO_ALBUM_KEY;
-import static com.life.mm.framework.user.CustomUser.Constants.QQ_KEY;
-import static com.life.mm.framework.user.CustomUser.Constants.SCHOOL_KEY;
-import static com.life.mm.framework.user.CustomUser.Constants.SELF_DESCRIPTION_KEY;
-import static com.life.mm.framework.user.CustomUser.Constants.WEIGHT_KEY;
-import static com.life.mm.framework.user.CustomUser.Constants.WEI_BO_KEY;
-import static com.life.mm.framework.user.CustomUser.Constants.WEI_XIN_KEY;
+import static com.life.mm.framework.user.BaseUser.Constants.ADDRESS_KEY;
+import static com.life.mm.framework.user.BaseUser.Constants.AGE_KEY;
+import static com.life.mm.framework.user.BaseUser.Constants.BIRTHDAY_KEY;
+import static com.life.mm.framework.user.BaseUser.Constants.COMPANY_KEY;
+import static com.life.mm.framework.user.BaseUser.Constants.CONSTELLATION_KEY;
+import static com.life.mm.framework.user.BaseUser.Constants.DIY_NAME_KEY;
+import static com.life.mm.framework.user.BaseUser.Constants.GENDER_KEY;
+import static com.life.mm.framework.user.BaseUser.Constants.HEAD_URL_KEY;
+import static com.life.mm.framework.user.BaseUser.Constants.HEIGHT_KEY;
+import static com.life.mm.framework.user.BaseUser.Constants.HOMETOWN_ADDRESS_KEY;
+import static com.life.mm.framework.user.BaseUser.Constants.NICK_NAME_KEY;
+import static com.life.mm.framework.user.BaseUser.Constants.OCCUPATION_KEY;
+import static com.life.mm.framework.user.BaseUser.Constants.PHOTO_ALBUM_KEY;
+import static com.life.mm.framework.user.BaseUser.Constants.QQ_KEY;
+import static com.life.mm.framework.user.BaseUser.Constants.SCHOOL_KEY;
+import static com.life.mm.framework.user.BaseUser.Constants.SELF_DESCRIPTION_KEY;
+import static com.life.mm.framework.user.BaseUser.Constants.WEIGHT_KEY;
+import static com.life.mm.framework.user.BaseUser.Constants.WEI_BO_KEY;
+import static com.life.mm.framework.user.BaseUser.Constants.WEI_XIN_KEY;
 
 /**
  * ProjectName:MMClient <P>
  * PackageName: com.life.mm.framework.user <p>
  * ClassName: ${CLASS_NAME}<P>
- * Created by zfang on 2017/3/20 16:49. <P>
- * Function: 系统用户表，并不会开放所有的查询权限<P>
+ * Created by zfang on 2017/3/29 14:36. <P>
+ * Function: <P>
  * Modified: <P>
  */
 
-public class CustomUser extends AVUser {
-
+public class BaseUser extends AVObject{
     public static class Constants {
         public static final String AGE_KEY = "age";
         public static final String GENDER_KEY = "gender";
@@ -101,7 +100,7 @@ public class CustomUser extends AVUser {
     }
 
     public void setGender(int gender) {
-        this.put(Constants.GENDER_KEY, gender);
+        this.put(CustomUser.Constants.GENDER_KEY, gender);
         this.gender = gender;
     }
 
@@ -198,7 +197,7 @@ public class CustomUser extends AVUser {
 
     public void setQq(String qq) {
         this.qq = qq;
-        this.put(Constants.QQ_KEY, qq);
+        this.put(CustomUser.Constants.QQ_KEY, qq);
     }
 
     public String getWeiBo() {
@@ -210,7 +209,7 @@ public class CustomUser extends AVUser {
 
     public void setWeiBo(String weiBo) {
         this.weiBo = weiBo;
-        this.put(Constants.WEI_BO_KEY, weiBo);
+        this.put(CustomUser.Constants.WEI_BO_KEY, weiBo);
     }
 
     public String getWeiXin() {
@@ -222,7 +221,7 @@ public class CustomUser extends AVUser {
 
     public void setWeiXin(String weiXin) {
         this.weiXin = weiXin;
-        this.put(Constants.WEI_XIN_KEY, weiXin);
+        this.put(CustomUser.Constants.WEI_XIN_KEY, weiXin);
     }
 
     public String getBirthDay() {

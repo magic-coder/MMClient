@@ -1,5 +1,7 @@
 package com.life.mm.framework.user;
 
+import android.text.TextUtils;
+
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
@@ -106,5 +108,26 @@ public class UserManager {
                 }
             }
         });
+    }
+
+    public String getCurrentUserId() {
+        CustomUser customUser = MMApplication.getInstance().getCustomUser();
+        return getUserId(customUser);
+    }
+
+    public String getUserId(CustomUser customUser) {
+        if (null == customUser) {
+            return null;
+        }
+        String userId = null;
+        userId = customUser.getUsername();
+        if (!TextUtils.isEmpty(userId) && userId.contains("@")) {
+            userId = userId.substring(0, userId.indexOf("@"));
+        }
+        return userId;
+    }
+
+    public CustomUser getCurrentUser() {
+        return MMApplication.getInstance().getCustomUser();
     }
 }

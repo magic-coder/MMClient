@@ -15,8 +15,8 @@ public class GlobalConfig {
     public static final boolean isDebug = true;
     public static SparseArray<String> genderArray = new SparseArray<>(2);
     static {
-        genderArray.put(0, "ÄĞ");
-        genderArray.put(1, "Å®");
+        genderArray.put(0, "ç”·");
+        genderArray.put(1, "å¥³");
     }
     //sharedPreference Config
     public static String globalFileName = "MMClientPreferenceFile";
@@ -25,14 +25,18 @@ public class GlobalConfig {
     public static String leanCloudAppKey = "7vHMWVtM1cbe05BlTy22cgSh";
     public static String leanCloudAppId = "8iCJi1O7XGVeUHDsQhgEtId6-gzGzoHsz";
 
-    //¸ßµÂÏà¹Øcode
+    //é«˜å¾·ç›¸å…³code
     public static final int amapCodeOk = 1000;
     //Code
     public static final int CODE_BASE = 999;
     public static final int REQUEST_CODE_SELECT_PHOTOS = CODE_BASE + 1;
 
     //key
-    public static final String source = "Source";//À´Ô´£¬±íÊ¾Êı¾İ´ÓÄÄ¸öÒ³Ãæ¹ıÀ´
+    public static final String data = "data";
+    public static final String source = "Source";//æ¥æºï¼Œè¡¨ç¤ºæ•°æ®ä»å“ªä¸ªé¡µé¢è¿‡æ¥
     public static final String email = "Email";
     public static final String phoneNumber = "PhoneNumber";
+
+    //EventBus event
+    public static final String sourceEditUserInfo = "EditUserInfoSuccess";
 }

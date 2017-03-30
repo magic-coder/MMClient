@@ -2,6 +2,7 @@ package com.life.mm.infocenter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Handler;
 import android.text.TextUtils;
 
 import com.avos.avoscloud.AVException;
@@ -135,6 +136,13 @@ public class MineInfoActivity extends BaseCollapsingActivity {
                             String fileName = headImgPath.substring(headImgPath.lastIndexOf("/") + 1, headImgPath.length());
                             final AVFile avFile = AVFile.withAbsoluteLocalPath(fileName, headImgPath);
                             if (null != avFile) {
+                                //图片选择器会先调用setResult导致这里先得到通知，此时去调用showLoading会拿到将要finish的activity的上下文，此时会导致window泄漏，所以这里延时一会再显示loading。
+                                new Handler(getMainLooper()).postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        onBegin();
+                                    }
+                                }, 300);
                                 avFile.saveInBackground(new SaveCallback() {
                                     @Override
                                     public void done(AVException e) {
@@ -154,7 +162,7 @@ public class MineInfoActivity extends BaseCollapsingActivity {
                                 }, new ProgressCallback() {
                                     @Override
                                     public void done(Integer integer) {
-                                        onBegin();
+                                        MMLogManager.logD(TAG + ", progress = " + integer);
                                     }
                                 });
                             }

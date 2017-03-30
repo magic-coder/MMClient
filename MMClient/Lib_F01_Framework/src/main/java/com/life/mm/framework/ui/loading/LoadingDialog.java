@@ -3,6 +3,7 @@ package com.life.mm.framework.ui.loading;
 import android.content.DialogInterface;
 
 import com.life.mm.common.config.GlobalConfig;
+import com.life.mm.common.log.MMLogManager;
 import com.life.mm.framework.app.MMApplication;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
@@ -18,6 +19,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 class LoadingDialog {
 
+    private String TAG = LoadingDialog.class.getSimpleName();
     private static LoadingDialog instance = null;
     private SweetAlertDialog loadingDlg = null;
     private SweetAlertDialog errorDialog = null;
@@ -39,6 +41,7 @@ class LoadingDialog {
     }
 
     public void showLoading() {
+        MMLogManager.logD(TAG + ", showLoading");
         if (null == loadingDlg) {
             loadingDlg = new SweetAlertDialog(MMApplication.getInstance().getAppManager().currentActivity(), SweetAlertDialog.PROGRESS_TYPE);
             loadingDlg.setContentText("");
@@ -50,6 +53,7 @@ class LoadingDialog {
     }
 
     public void dismiss() {
+        MMLogManager.logD(TAG + ", dismiss");
         if (null != loadingDlg && loadingDlg.isShowing()) {
             loadingDlg.dismiss();
         }

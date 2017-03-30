@@ -4,7 +4,6 @@ import android.text.TextUtils;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVQuery;
-import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.GetCallback;
 import com.avos.avoscloud.SaveCallback;
 import com.life.mm.common.log.MMLogManager;
@@ -43,16 +42,6 @@ public class UserManager {
 
     }
 
-    public void saveDevUser(AVUser avUser) {
-        DevUser devUser = new DevUser(avUser);
-        devUser.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(AVException e) {
-                MMLogManager.logD(TAG + (null != e ? ", Save Failure" : "Save Success"));
-            }
-        });
-    }
-
     /**
      * 保存当前操作的User对象，让CustomUser对象的数据与DevUser对象数据保持一致.
      * @param avUser    当前操作的对象
@@ -78,12 +67,14 @@ public class UserManager {
                     }
                 }
 
-                devUser.saveInBackground(new SaveCallback() {
-                    @Override
-                    public void done(AVException e) {
-                        MMLogManager.logD(TAG + (null != e ? ", Save Failure" : "Save Success"));
-                    }
-                });
+                if (null != devUser) {
+                    devUser.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(AVException e) {
+                            MMLogManager.logD(TAG + (null != e ? ", Save Failure, e = " + e : ", Save Success"));
+                        }
+                    });
+                }
             }
         });
     }
@@ -97,12 +88,14 @@ public class UserManager {
     public void queryDevUser(final BaseCallBack callBack, String objectId, final OnQueryUserCallback<DevUser> userCallback) {
         callBack.onBegin();
         AVQuery<DevUser> devUserAVQuery = new AVQuery<>(DevUser.class.getSimpleName());
-        devUserAVQuery.getInBackground(objectId, new GetCallback<DevUser>() {
+        devUserAVQuery.whereEqualTo(DevUser.Constants.DEV_OBJECT_ID_KEY, objectId);
+        devUserAVQuery.getFirstInBackground(new GetCallback<DevUser>() {
             @Override
             public void done(DevUser devUser, AVException e) {
                 callBack.onFinish();
                 if (null != e) {
                     callBack.onError(e.getCode(), e.getMessage());
+                    userCallback.onError(e.getCode() + "", e.getMessage());
                 } else {
                     userCallback.onGetUser(devUser);
                 }

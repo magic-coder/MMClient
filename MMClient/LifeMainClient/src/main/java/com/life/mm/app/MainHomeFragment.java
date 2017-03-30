@@ -17,7 +17,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.BounceInterpolator;
 import android.view.animation.Interpolator;
@@ -56,7 +55,6 @@ import com.amap.api.services.nearby.UploadInfo;
 import com.amap.api.services.nearby.UploadInfoCallback;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
-import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.SaveCallback;
 import com.google.gson.Gson;
 import com.life.mm.MMMainActivity;
@@ -143,7 +141,7 @@ public class MainHomeFragment extends BaseFragment<MainPresenter> {
     private ExecutorService mExecutorService = null;
     private int count = 1;
     private Bitmap lastMarkerBitMap = null;
-    private String clickUserId = null;
+    private Marker lastClickMarker = null;
 
     private MMMainActivity.OnMenuInflateListener onMenuInflateListener = new MMMainActivity.OnMenuInflateListener() {
         @Override
@@ -171,6 +169,7 @@ public class MainHomeFragment extends BaseFragment<MainPresenter> {
             if (resultCode == AMapException.CODE_AMAP_SUCCESS) {
                 nearbyMarkerList.clear();
                 markerMap.clear();
+                setLocationMarker();
                 if (nearbySearchResult != null && nearbySearchResult.getNearbyInfoList() != null
                         && nearbySearchResult.getNearbyInfoList().size() > 0) {
                     List<NearbyInfo> nearbyInfoList = nearbySearchResult.getNearbyInfoList();
@@ -259,7 +258,7 @@ public class MainHomeFragment extends BaseFragment<MainPresenter> {
                 mCircle.setRadius(Double.parseDouble(result.getAccuracy()));
                 mLocMarker.setPosition(location);
             }
-            markerMap.put(mLocMarker, UserManager.getInstance().getCurrentUserId());
+            setLocationMarker();
 
             //位置发生改变重新搜索附近的人
             if (mCenterPoint.equals(lastCenterPoint)) {
@@ -504,7 +503,7 @@ public class MainHomeFragment extends BaseFragment<MainPresenter> {
             public boolean onMarkerClick(Marker marker) {
                 MMLogManager.logD(TAG + ", onMarkerClick, marker = " + marker);
                 setInfoWindow(marker);
-                clickUserId = markerMap.get(marker);
+                lastClickMarker = marker;
                 return true;
             }
         });
@@ -551,23 +550,19 @@ public class MainHomeFragment extends BaseFragment<MainPresenter> {
             @Override
             public View getInfoWindow(final Marker marker) {
                 MMLogManager.logD(TAG + ", getInfoContents, marker = " + marker);
-                //View infoContentsView = ((Activity)mContext).getLayoutInflater().inflate(R.layout.custom_info_window, null);
                 String userId = markerMap.get(marker);
-                if (!TextUtils.equals(clickUserId, userId)) {
+                String lastClickUserId = markerMap.get(lastClickMarker);
+                if (TextUtils.isEmpty(userId) || !TextUtils.equals(lastClickUserId, userId)) {
                     return null;
                 }
                 View infoContentsView = mLayoutInflater.inflate(R.layout.custom_info_window, null, false);
-                int width = mResources.getDimensionPixelSize(R.dimen.x755);
-                int height = mResources.getDimensionPixelSize(R.dimen.x555);
-                ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(width, height);
-                //infoContentsView.setLayoutParams(lp);
                 final ImageView info_window_head_img = (ImageView) infoContentsView.findViewById(R.id.info_window_head_img);
                 final TextView info_window_nickname = (TextView) infoContentsView.findViewById(R.id.info_window_nickname);
                 final TextView info_window_self_description = (TextView) infoContentsView.findViewById(R.id.info_window_self_description);
                 //1 设置头像
-                CustomUser user = AVUser.getCurrentUser(CustomUser.class);
+                CustomUser user = UserManager.getInstance().getCurrentUser();
                 if (null != user) {//点击的Marker属于当前登陆的用户，不用异步查找
-                    if (UserManager.getInstance().getCurrentUserId().equals(markerMap.get(marker))) {
+                    if (user.getObjectId().equals(markerMap.get(marker))) {
                         String headUrl = user.getHeadUrl();
                         String nickName = user.getNickName();
                         String selfDescription = user.getSelfDescription();
@@ -582,17 +577,19 @@ public class MainHomeFragment extends BaseFragment<MainPresenter> {
                 }
 
                 //点击的Marker不属于当前登陆用户需要异步到LeanCloud查找当前用户信息.
-                UserManager.getInstance().queryDevUser(MainHomeFragment.this, markerMap.get(marker), new OnQueryUserCallback<DevUser>() {
+                UserManager.getInstance().queryDevUser(MainHomeFragment.this, userId, new OnQueryUserCallback<DevUser>() {
                     @Override
                     public void onGetUser(DevUser user) {
-                        String headUrl = user.getHeadUrl();
-                        String nickName = user.getNickName();
-                        String selfDescription = user.getSelfDescription();
-                        if (!TextUtils.isEmpty(headUrl)) {
-                            load2Img(info_window_head_img, headUrl);
+                        if (null != user) {
+                            String headUrl = user.getHeadUrl();
+                            String nickName = user.getNickName();
+                            String selfDescription = user.getSelfDescription();
+                            if (!TextUtils.isEmpty(headUrl)) {
+                                load2Img(info_window_head_img, headUrl);
+                            }
+                            info_window_nickname.setText(TextUtils.isEmpty(nickName) ? mResources.getString(R.string.nick_name_empty_boy_tips) : nickName);
+                            info_window_self_description.setText(TextUtils.isEmpty(selfDescription) ? mResources.getString(R.string.simple_info_self_description_tips) : selfDescription);
                         }
-                        info_window_nickname.setText(TextUtils.isEmpty(nickName) ? mResources.getString(R.string.nick_name_empty_boy_tips) : nickName);
-                        info_window_self_description.setText(TextUtils.isEmpty(selfDescription) ? mResources.getString(R.string.simple_info_self_description_tips) : selfDescription);
                     }
 
                     @Override
@@ -727,7 +724,21 @@ public class MainHomeFragment extends BaseFragment<MainPresenter> {
                 MMLogManager.logD(TAG + ", onMapLoaded");
                 initLocationListener();
                 initNearbySearch();
+                initMapClickListener();
                 //searchByLocal();
+            }
+        });
+    }
+
+    private void initMapClickListener() {
+        aMap.setOnMapClickListener(new AMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                if (null != lastClickMarker) {
+                    if (lastClickMarker.isInfoWindowShown()) {
+                        lastClickMarker.hideInfoWindow();
+                    }
+                }
             }
         });
     }
@@ -748,7 +759,7 @@ public class MainHomeFragment extends BaseFragment<MainPresenter> {
                 UploadInfo uploadInfo = new UploadInfo();
                 uploadInfo.setCoordType(NearbySearch.AMAP);//坐标类型
                 uploadInfo.setPoint(mCenterPoint);
-                uploadInfo.setUserID(UserManager.getInstance().getCurrentUserId());
+                uploadInfo.setUserID(UserManager.getInstance().getCurrentUser().getObjectId());
                 return uploadInfo;
             }
         }, 5 * 60 * 1000);
@@ -761,12 +772,12 @@ public class MainHomeFragment extends BaseFragment<MainPresenter> {
         UploadInfo loadInfo = new UploadInfo();
         loadInfo.setCoordType(NearbySearch.AMAP);
         loadInfo.setPoint(mCenterPoint);
-        loadInfo.setUserID(UserManager.getInstance().getCurrentUserId());
+        loadInfo.setUserID(UserManager.getInstance().getCurrentUser().getObjectId());
         NearbySearch.getInstance(mContext).uploadNearbyInfoAsyn(loadInfo);
     }
 
     private void clearMyNearbyLocationInfo() {
-        mNearbySearch.setUserID(UserManager.getInstance().getCurrentUserId());
+        mNearbySearch.setUserID(UserManager.getInstance().getCurrentUser().getObjectId());
         NearbySearch.getInstance(mContext).clearUserInfoAsyn();
     }
     private void upload2YunTu(LocationResult result) {
@@ -972,6 +983,7 @@ public class MainHomeFragment extends BaseFragment<MainPresenter> {
     @Override
     public void onResume() {
         super.onResume();
+        setLocationMarker();
         if (mSensorHelper != null) {
             mSensorHelper.registerSensorListener();
         } else {
@@ -979,6 +991,17 @@ public class MainHomeFragment extends BaseFragment<MainPresenter> {
             mSensorHelper.registerSensorListener();
             if (mSensorHelper.getCurrentMarker() == null && mLocMarker != null) {
                 mSensorHelper.setCurrentMarker(mLocMarker);
+            }
+        }
+    }
+
+    private void setLocationMarker() {
+        if (null != mLocMarker && !markerMap.containsKey(mLocMarker)) {
+            if (null != mLocMarker) {
+                CustomUser customUser = UserManager.getInstance().getCurrentUser();
+                if (null != customUser) {
+                    markerMap.put(mLocMarker, customUser.getObjectId());
+                }
             }
         }
     }

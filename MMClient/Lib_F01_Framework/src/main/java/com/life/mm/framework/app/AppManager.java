@@ -93,6 +93,9 @@ public class AppManager implements Application.ActivityLifecycleCallbacks {
         Activity activity = null;
         try {
             activity = activityStack.lastElement();
+            if (null != activity && activity.isFinishing()) {
+                activity = preActivity();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,5 +1,6 @@
 package com.life.mm.framework.user;
 
+import android.os.Parcel;
 import android.text.TextUtils;
 
 import com.avos.avoscloud.AVObject;
@@ -60,26 +61,34 @@ public class BaseUser extends AVObject{
     //基本信息
     private int age = 0;//年龄
     private int gender = -1;//性别
-    private String headUrl = null;//头像
-    private String nickName = null;//昵称
+    private String headUrl = "";//头像
+    private String nickName = "";//昵称
     private double height = 0d;//身高[cm]
     private double weight = 0d;//体重[kg]
-    private String selfDescription = null;//自我介绍
-    private String diyName = null;//修改签名
+    private String selfDescription = "";//自我介绍
+    private String diyName = "";//修改签名
     private String photoAlbum;//照片墙
-    private String birthDay = null;//生日
-    private String constellation = null;//星座
-    private String occupation = null;//职业
-    private String company = null;//公司
-    private String school = null;//学校
-    private String hometownAddress = null;//家乡
+    private String birthDay = "";//生日
+    private String constellation = "";//星座
+    private String occupation = "";//职业
+    private String company = "";//公司
+    private String school = "";//学校
+    private String hometownAddress = "";//家乡
 
     //联系方式
-    private String address = null;//当前地址
-    private String qq = null;
-    private String weiBo = null;
-    private String weiXin = null;
+    private String address = "";//当前地址
+    private String qq = "";
+    private String weiBo = "";
+    private String weiXin = "";
+    public BaseUser() {
+        super();
+    }
 
+    public BaseUser(Parcel in){
+        super(in);
+    }
+    //此处为我们的默认实现，当然你也可以自行实现
+    public static final Creator CREATOR = AVObjectCreator.instance;
     public int getAge() {
         if (0 == age) {
             this.age = getInt(AGE_KEY);

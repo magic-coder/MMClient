@@ -1,7 +1,9 @@
 package com.life.mm.framework.user;
 
+import android.os.Parcel;
+import android.text.TextUtils;
+
 import com.avos.avoscloud.AVClassName;
-import com.avos.avoscloud.AVUser;
 
 import static com.life.mm.framework.user.DevUser.Constants.DEV_OBJECT_ID_KEY;
 import static com.life.mm.framework.user.DevUser.Constants.EMAIL_KEY;
@@ -18,7 +20,7 @@ import static com.life.mm.framework.user.DevUser.Constants.USER_NAME_KEY;
  */
 
 @AVClassName("DevUser")
-public class DevUser extends BaseUser{
+public class DevUser extends BaseUser {
 
     public class Constants {
         public static final String DEV_OBJECT_ID_KEY = "devObjectId";
@@ -30,25 +32,28 @@ public class DevUser extends BaseUser{
     /**
      * 增加一个devObjectId字段表示当前User对应的CustomerUser
      */
-    private String devObjectId = null;
+    private String devObjectId = "";
     private CustomUser customUser = null;
 
-    private String userName = null;
-    private String email = null;
-    private String mobilePhoneNumber = null;
-
-    public DevUser(AVUser avUser) {
-        this.setUserName(avUser.getUsername());
-        this.setEmail(avUser.getEmail());
-        this.setMobilePhoneNumber(avUser.getMobilePhoneNumber());
+    private String userName = "";
+    private String email = "";
+    private String mobilePhoneNumber = "";
+    public DevUser() {
+        super();
     }
+
+    public DevUser(Parcel in){
+        super(in);
+    }
+    //此处为我们的默认实现，当然你也可以自行实现
+    public static final Creator CREATOR = AVObjectCreator.instance;
 
     public DevUser(CustomUser customUser) {
         setUser(customUser);
     }
 
     public void setUser(CustomUser customUser) {
-        this.customUser = customUser;
+        //setCustomUser(customUser);
         this.devObjectId = customUser.getObjectId();
 
 
@@ -76,7 +81,7 @@ public class DevUser extends BaseUser{
 
         this.setDevObjectId(customUser.getObjectId());
         this.setUserName(customUser.getUsername());
-        this.setEmail(customUser.getEmail());
+        this.setEmail(TextUtils.isEmpty(customUser.getEmail()) ? "" : customUser.getEmail());
         this.setMobilePhoneNumber(customUser.getMobilePhoneNumber());
     }
 
@@ -95,11 +100,11 @@ public class DevUser extends BaseUser{
     }
 
     public String getDevObjectId() {
-        return (null == devObjectId) ? (devObjectId = getString(DEV_OBJECT_ID_KEY)) : devObjectId;
+        return (TextUtils.isEmpty(devObjectId)) ? (devObjectId = getString(DEV_OBJECT_ID_KEY)) : devObjectId;
     }
 
     public String getUserName() {
-        return (null == userName) ? (userName = getString(USER_NAME_KEY)) : userName;
+        return (TextUtils.isEmpty(userName)) ? (userName = getString(USER_NAME_KEY)) : userName;
     }
 
     public void setUserName(String userName) {
@@ -108,7 +113,7 @@ public class DevUser extends BaseUser{
     }
 
     public String getEmail() {
-        return (null == email) ? (email = getString(EMAIL_KEY)) : email;
+        return (TextUtils.isEmpty(email)) ? (email = getString(EMAIL_KEY)) : email;
     }
 
     public void setEmail(String email) {
@@ -117,7 +122,7 @@ public class DevUser extends BaseUser{
     }
 
     public String getMobilePhoneNumber() {
-        return (null == mobilePhoneNumber) ? (mobilePhoneNumber = getString(MOBILE_PHONE_NUMBER_KEY)) : mobilePhoneNumber;
+        return (TextUtils.isEmpty(mobilePhoneNumber)) ? (mobilePhoneNumber = getString(MOBILE_PHONE_NUMBER_KEY)) : mobilePhoneNumber;
     }
 
     public void setMobilePhoneNumber(String mobilePhoneNumber) {

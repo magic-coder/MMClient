@@ -22,7 +22,7 @@ public class PasswordSetModel implements PasswordSetContract.Model {
     @Override
     public void register(String source, String userName, String pwd, final BaseCallBack callBack) {
         callBack.onBegin();
-        CustomUser customUser = new CustomUser();
+        final CustomUser customUser = new CustomUser();
         customUser.setUsername(userName);
         customUser.setPassword(pwd);
         if (PhoneRegisterActivity.class.getSimpleName().equals(source)) {
@@ -30,13 +30,14 @@ public class PasswordSetModel implements PasswordSetContract.Model {
         } else if (EmailRegisterActivity.class.getSimpleName().equals(source)) {
             customUser.setEmail(userName);
         }
-        UserManager.getInstance().saveDevUser(customUser);
+
         customUser.signUpInBackground(new SignUpCallback() {
             @Override
             public void done(AVException e) {
                 callBack.onFinish();
                 if (null == e) {
                     callBack.onSuccess();
+                    UserManager.getInstance().saveDevUser(customUser);
                 } else {
                     callBack.onError(e.getCode(), e.getMessage());
                 }

@@ -61,25 +61,25 @@ public class CustomUser extends AVUser {
     //基本信息
     private int age = 0;//年龄
     private int gender = -1;//性别
-    private String headUrl = null;//头像
-    private String nickName = null;//昵称
+    private String headUrl = "";//头像
+    private String nickName = "";//昵称
     private double height = 0d;//身高[cm]
     private double weight = 0d;//体重[kg]
-    private String selfDescription = null;//自我介绍
-    private String diyName = null;//修改签名
+    private String selfDescription = "";//自我介绍
+    private String diyName = "";//修改签名
     private String photoAlbum;//照片墙
-    private String birthDay = null;//生日
-    private String constellation = null;//星座
-    private String occupation = null;//职业
-    private String company = null;//公司
-    private String school = null;//学校
-    private String hometownAddress = null;//家乡
+    private String birthDay = "";//生日
+    private String constellation = "";//星座
+    private String occupation = "";//职业
+    private String company = "";//公司
+    private String school = "";//学校
+    private String hometownAddress = "";//家乡
 
     //联系方式
-    private String address = null;//当前地址
-    private String qq = null;
-    private String weiBo = null;
-    private String weiXin = null;
+    private String address = "";//当前地址
+    private String qq = "";
+    private String weiBo = "";
+    private String weiXin = "";
 
     public int getAge() {
         if (0 == age) {
@@ -108,6 +108,9 @@ public class CustomUser extends AVUser {
     public String getHeadUrl() {
         if (TextUtils.isEmpty(headUrl)) {
             this.headUrl = getString(HEAD_URL_KEY);
+            if (TextUtils.isEmpty(headUrl)) {
+                headUrl = "";
+            }
         }
         return headUrl;
     }
@@ -120,6 +123,9 @@ public class CustomUser extends AVUser {
     public String getNickName() {
         if (TextUtils.isEmpty(nickName)) {
             this.nickName = getString(NICK_NAME_KEY);
+            if (TextUtils.isEmpty(nickName)) {
+                nickName = "";
+            }
         }
         return nickName;
     }
@@ -132,6 +138,9 @@ public class CustomUser extends AVUser {
     public String getAddress() {
         if (TextUtils.isEmpty(address)) {
             this.address = getString(ADDRESS_KEY);
+            if (TextUtils.isEmpty(address)) {
+                address = "";
+            }
         }
         return this.address;
     }
@@ -163,7 +172,13 @@ public class CustomUser extends AVUser {
     }
 
     public String getSelfDescription() {
-        return (TextUtils.isEmpty(selfDescription)) ? (selfDescription = getString(SELF_DESCRIPTION_KEY)) : selfDescription;
+        if (TextUtils.isEmpty(selfDescription)) {
+            this.selfDescription = getString(SELF_DESCRIPTION_KEY);
+            if (TextUtils.isEmpty(selfDescription)) {
+                selfDescription = "";
+            }
+        }
+        return selfDescription;
     }
 
     public void setSelfDescription(String selfDescription) {
@@ -172,7 +187,13 @@ public class CustomUser extends AVUser {
     }
 
     public String getDiyName() {
-        return (TextUtils.isEmpty(diyName)) ? (diyName = getString(DIY_NAME_KEY)) : diyName;
+        if (TextUtils.isEmpty(diyName)) {
+            this.diyName = getString(DIY_NAME_KEY);
+            if (TextUtils.isEmpty(diyName)) {
+                diyName = "";
+            }
+        }
+        return diyName;
     }
 
     public void setDiyName(String diyName) {
@@ -181,7 +202,13 @@ public class CustomUser extends AVUser {
     }
 
     public String getPhotoAlbum() {
-        return (TextUtils.isEmpty(photoAlbum)) ? (photoAlbum = getString(PHOTO_ALBUM_KEY)) : photoAlbum;
+        if (TextUtils.isEmpty(photoAlbum)) {
+            this.photoAlbum = getString(PHOTO_ALBUM_KEY);
+            if (TextUtils.isEmpty(photoAlbum)) {
+                photoAlbum = "";
+            }
+        }
+        return photoAlbum;
     }
 
     public void setPhotoAlbum(String photoAlbum) {
@@ -192,6 +219,9 @@ public class CustomUser extends AVUser {
     public String getQq() {
         if (TextUtils.isEmpty(qq)) {
             qq = getString(QQ_KEY);
+            if (TextUtils.isEmpty(qq)) {
+                qq = "";
+            }
         }
         return qq;
     }
@@ -204,6 +234,9 @@ public class CustomUser extends AVUser {
     public String getWeiBo() {
         if (TextUtils.isEmpty(weiBo)) {
             this.weiBo = getString(WEI_BO_KEY);
+            if (TextUtils.isEmpty(weiBo)) {
+                weiBo = "";
+            }
         }
         return weiBo;
     }
@@ -216,6 +249,9 @@ public class CustomUser extends AVUser {
     public String getWeiXin() {
         if (TextUtils.isEmpty(weiXin)) {
             this.weiXin = getString(WEI_XIN_KEY);
+            if (TextUtils.isEmpty(weiXin)) {
+                weiXin = "";
+            }
         }
         return weiXin;
     }
@@ -228,6 +264,9 @@ public class CustomUser extends AVUser {
     public String getBirthDay() {
         if (TextUtils.isEmpty(birthDay)) {
             this.birthDay = getString(BIRTHDAY_KEY);
+            if (TextUtils.isEmpty(birthDay)) {
+                birthDay = "";
+            }
         }
         return birthDay;
     }
@@ -238,6 +277,12 @@ public class CustomUser extends AVUser {
     }
 
     public String getConstellation() {
+        if (TextUtils.isEmpty(constellation)) {
+            this.constellation = getString(CONSTELLATION_KEY);
+            if (TextUtils.isEmpty(constellation)) {
+                constellation = "";
+            }
+        }
         return constellation;
     }
 
@@ -247,6 +292,12 @@ public class CustomUser extends AVUser {
     }
 
     public String getOccupation() {
+        if (TextUtils.isEmpty(occupation)) {
+            occupation = getString(OCCUPATION_KEY);
+            if (TextUtils.isEmpty(occupation)) {
+                occupation = "";
+            }
+        }
         return occupation;
     }
 
@@ -258,6 +309,9 @@ public class CustomUser extends AVUser {
     public String getCompany() {
         if (TextUtils.isEmpty(company)) {
             this.company = getString(COMPANY_KEY);
+            if (TextUtils.isEmpty(company)) {
+                company = "";
+            }
         }
         return company;
     }
@@ -270,6 +324,9 @@ public class CustomUser extends AVUser {
     public String getSchool() {
         if (TextUtils.isEmpty(school)) {
             this.school = getString(SCHOOL_KEY);
+            if (TextUtils.isEmpty(school)) {
+                school = "";
+            }
         }
         return school;
     }
@@ -282,6 +339,9 @@ public class CustomUser extends AVUser {
     public String getHometownAddress() {
         if (TextUtils.isEmpty(hometownAddress)) {
             this.hometownAddress = getString(HOMETOWN_ADDRESS_KEY);
+            if (TextUtils.isEmpty(hometownAddress)) {
+                hometownAddress = "";
+            }
         }
         return hometownAddress;
     }

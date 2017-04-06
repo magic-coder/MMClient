@@ -9,5 +9,5 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="我的好友"/>
+        android:text="我的粉丝"/>
 </LinearLayout>

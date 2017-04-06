@@ -1,42 +1,69 @@
 package com.life.mm.framework.user;
 
-import android.os.Parcel;
+import android.support.annotation.NonNull;
 
-import com.avos.avoscloud.AVClassName;
-import com.avos.avoscloud.AVObject;
+import java.util.Locale;
 
 /**
  * ProjectName:MMClient <P>
  * PackageName: com.life.mm.framework.user <p>
  * ClassName: ${CLASS_NAME}<P>
  * Created by zfang on 2017/3/27 15:25. <P>
- * Function: 联系方式<P>
+ * Function: 联系人<P>
  * Modified: <P>
  */
 
-@AVClassName("ContactInfo")
-public class ContactInfo extends AVObject{
+public class ContactInfo implements Comparable<ContactInfo> {
 
-    public ContactInfo() {
-        super();
-    }
-    public ContactInfo(Parcel in) {
-        super(in);
-    }
-    //此处为我们的默认实现，当然你也可以自行实现
-    public static final Creator CREATOR = AVObjectCreator.instance;
-
-    public static class Constants {
-        public static final String QQ_KEY = "qq";
-        public static final String WEI_BO_KEY = "weiBo";
-        public static final String WEI_XIN_KEY = "weiXin";
-        public static final String ADDRESS_KEY = "address";
-    }
-
+    private String name = "";
+    private String namePY = "ss";
+    private String number = "";
+    private String headImageUrl = "";
+    private String email = "";
     private String qq = null;
     private String weiBo = null;
     private String weiXin = null;
     private String address = null;//地址
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getNamePY() {
+        return namePY;
+    }
+
+    public void setNamePY(String namePY) {
+        this.namePY = namePY.toUpperCase(Locale.getDefault());
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public String getHeadImageUrl() {
+        return headImageUrl;
+    }
+
+    public void setHeadImageUrl(String headImageUrl) {
+        this.headImageUrl = headImageUrl;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getQq() {
         return qq;
@@ -68,5 +95,10 @@ public class ContactInfo extends AVObject{
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    @Override
+    public int compareTo(@NonNull ContactInfo o) {
+        return namePY.compareToIgnoreCase(o.getNamePY());
     }
 }

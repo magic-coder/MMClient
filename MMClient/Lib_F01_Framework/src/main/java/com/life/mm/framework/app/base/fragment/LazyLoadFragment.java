@@ -69,7 +69,7 @@ public abstract class LazyLoadFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (null == mFragmentView) {
             mFragmentView = inflater.inflate(getLayoutId(), container, false);
-            ButterKnife.bind(mFragmentView);
+            ButterKnife.bind(this, mFragmentView);
             isPrepared = true;
             initView(mFragmentView);
             lazyLoad();
@@ -100,6 +100,7 @@ public abstract class LazyLoadFragment extends Fragment {
      */
     protected void onVisible() {
         MMLogManager.logD(TAG + ", onVisible");
+        lazyLoad();
     }
 
     /**

@@ -191,7 +191,9 @@ public class LocationManager {
      */
     public void stopLocation() {
         // 停止定位
-        locationClient.stopLocation();
+        if (null != locationClient) {
+            locationClient.stopLocation();
+        }
     }
 
     /**

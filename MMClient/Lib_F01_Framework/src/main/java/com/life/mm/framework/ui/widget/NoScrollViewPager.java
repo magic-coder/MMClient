@@ -17,7 +17,7 @@ import android.view.MotionEvent;
 public class NoScrollViewPager extends ViewPager {
 
     private final String TAG = NoScrollViewPager.class.getSimpleName();
-    private boolean isCanScroll = true;  //标记该viewpager是否可滑动
+    private boolean isCanScroll = false;  //标记该viewpager是否可滑动
 
     public NoScrollViewPager(Context context) {
         super(context);

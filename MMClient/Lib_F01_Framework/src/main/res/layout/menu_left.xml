@@ -18,6 +18,15 @@
             android:scaleType="fitXY"
             android:src="@drawable/ic_default_avatar" />
 
+        <TextView
+            android:id="@+id/main_user_id"
+            style="@style/normal_text_style"
+            android:layout_alignLeft="@id/main_menu_cover"
+            android:layout_below="@id/main_menu_cover"
+            android:textSize="@dimen/text_small_size"
+            android:layout_marginTop="@dimen/margin_item_normal_height"
+            tools:text="@string/navigation_menu_info_level" />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -155,4 +155,26 @@
 
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="WaveSideBarView">
+        <attr name="sidebarTextColor" format="color|reference"/>
+        <attr name="sidebarBackgroundColor" format="color|reference"/>
+        <attr name="sidebarChooseTextColor" format="color|reference"/>
+        <attr name="sidebarTextSize" format="dimension"/>
+        <attr name="sidebarLargeTextSize" format="dimension"/>
+        <attr name="sidebarRadius" format="dimension"/>
+        <attr name="sidebarBallRadius" format="dimension"/>
+    </declare-styleable>
+    <declare-styleable name="FancyIndexer">
+        <attr name="widthOffset" format="dimension" />
+        <attr name="minFontSize" format="integer" />
+        <attr name="maxFontSize" format="integer" />
+        <attr name="tipFontSize" format="integer" />
+        <attr name="maxBezierHeight" format="dimension" />
+        <attr name="maxBezierWidth" format="dimension" />
+        <attr name="maxBezierLines" format="integer" />
+        <attr name="additionalTipOffset" format="dimension" />
+        <attr name="fontColor" format="color" />
+        <attr name="tipFontColor" format="color" />
+    </declare-styleable>
 </resources>

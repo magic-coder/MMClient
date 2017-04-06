@@ -12,7 +12,6 @@ import com.life.mm.common.log.MMLogManager;
 import com.life.mm.common.preference.SharedPreferenceManager;
 import com.life.mm.framework.map.LocationManager;
 import com.life.mm.framework.okhttp.OKHttpManager;
-import com.life.mm.framework.user.ContactInfo;
 import com.life.mm.framework.user.CustomUser;
 import com.life.mm.framework.user.DevUser;
 
@@ -106,7 +105,6 @@ public class MMApplication extends Application {
         okHttpClient = OKHttpManager.getInstance().getOkHttpClient();
 
         AVUser.alwaysUseSubUserClass(CustomUser.class);
-        AVObject.registerSubclass(ContactInfo.class);//支持子类化操作
         AVObject.registerSubclass(DevUser.class);
         // 初始化参数依次为 this, AppId, AppKey
         AVOSCloud.initialize(this, GlobalConfig.leanCloudAppId, GlobalConfig.leanCloudAppKey);

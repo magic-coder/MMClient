@@ -16,6 +16,11 @@
     <!--用于提高GPS定位速度-->
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
 
+    <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+
+
+
     <application
         android:name=".framework.app.MMApplication"
         android:allowBackup="true"

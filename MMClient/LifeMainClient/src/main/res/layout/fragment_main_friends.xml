@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MMMainActivity">
+    android:fitsSystemWindows="false"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="好友"/>
-</RelativeLayout>
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:layout_gravity="bottom"
+        android:background="@color/white_50"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@color/primary"
+        app:tabIndicatorHeight="2dp"
+        app:tabSelectedTextColor="@color/green"
+        app:tabTextColor="@color/primary" />
+
+
+    <com.life.mm.framework.ui.widget.NoScrollViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

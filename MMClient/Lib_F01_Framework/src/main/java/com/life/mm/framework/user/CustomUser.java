@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.avos.avoscloud.AVUser;
 
+import static com.life.mm.framework.user.BaseUser.Constants.NICK_NAME_PY_KEY;
 import static com.life.mm.framework.user.CustomUser.Constants.ADDRESS_KEY;
 import static com.life.mm.framework.user.CustomUser.Constants.AGE_KEY;
 import static com.life.mm.framework.user.CustomUser.Constants.BIRTHDAY_KEY;
@@ -40,6 +41,7 @@ public class CustomUser extends AVUser {
         public static final String GENDER_KEY = "gender";
         public static final String HEAD_URL_KEY = "headUrl";
         public static final String NICK_NAME_KEY = "nickName";
+        public static final String NICK_NAME_PY_KEY = "nickNamePY";
         public static final String HEIGHT_KEY = "height";
         public static final String WEIGHT_KEY = "weight";
         public static final String SELF_DESCRIPTION_KEY = "selfDescription";
@@ -63,6 +65,7 @@ public class CustomUser extends AVUser {
     private int gender = -1;//性别
     private String headUrl = "";//头像
     private String nickName = "";//昵称
+    private String nickNamePy = "";//昵称汉字拼音
     private double height = 0d;//身高[cm]
     private double weight = 0d;//体重[kg]
     private String selfDescription = "";//自我介绍
@@ -133,6 +136,18 @@ public class CustomUser extends AVUser {
     public void setNickName(String nickName) {
         this.nickName = nickName;
         put(NICK_NAME_KEY, nickName);
+    }
+
+    public String getNickNamePy() {
+        if (TextUtils.isEmpty(nickNamePy)) {
+            this.nickNamePy = getString(NICK_NAME_PY_KEY);
+        }
+        return nickNamePy;
+    }
+
+    public void setNickNamePy(String nickNamePy) {
+        this.nickNamePy = nickNamePy;
+        put(NICK_NAME_PY_KEY, nickNamePy);
     }
 
     public String getAddress() {

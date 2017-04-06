@@ -39,6 +39,7 @@ import com.life.mm.framework.libwrapper.glide.GlideCircleTransform;
 import com.life.mm.framework.libwrapper.glide.GlideUtils;
 import com.life.mm.framework.skin.CcbSkinColorTool;
 import com.life.mm.framework.user.CustomUser;
+import com.life.mm.framework.user.UserManager;
 import com.life.mm.infocenter.MineInfoActivity;
 import com.mm.life.settings.SettingsActivity;
 
@@ -93,6 +94,7 @@ public class MMMainActivity extends BaseActivity {
     private ImageView main_menu_cover = null;
     private TextView main_menu_nick = null;
     private TextView main_menu_level = null;
+    private TextView main_user_id = null;
 
     private TextView main_menu_mine = null;
     private TextView main_menu_settings = null;
@@ -206,6 +208,10 @@ public class MMMainActivity extends BaseActivity {
             if (!TextUtils.isEmpty(headUrl)) {
                 GlideUtils.loadHeadImg(headUrl, main_menu_cover, false, DecodeFormat.DEFAULT, new GlideCircleTransform(mContext), DiskCacheStrategy.SOURCE);
             }
+            String userId = UserManager.getInstance().getCurrentUserId();
+            if (!TextUtils.isEmpty(userId)) {
+                main_user_id.setText(userId);
+            }
         }
     }
 
@@ -213,6 +219,7 @@ public class MMMainActivity extends BaseActivity {
         this.main_menu_cover = (ImageView) contentRootView.findViewById(R.id.main_menu_cover);
         this.main_menu_nick = (TextView) contentRootView.findViewById(R.id.main_menu_nick);
         this.main_menu_level = (TextView) contentRootView.findViewById(R.id.main_menu_level);
+        this.main_user_id = (TextView) contentRootView.findViewById(R.id.main_user_id);
 
         this.main_menu_mine = (TextView) contentRootView.findViewById(R.id.main_menu_mine);
         this.main_menu_settings = (TextView) contentRootView.findViewById(R.id.main_menu_settings);
